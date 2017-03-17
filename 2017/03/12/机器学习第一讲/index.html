@@ -1,0 +1,1244 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一：什么是机器学习1.1：概念__引言：让我们一起来回忆我们曾经买西瓜的经历，先看个头，然后敲一敲，再看看根蒂，然后做出我们的判断，好瓜还是坏瓜。仔细想想我们判断的过程，西瓜的大小，声音，根蒂，通过着一系列的西瓜的属性告诉我们它是好瓜还是坏瓜，为什么这些西瓜的属性可以判断它是好瓜还是坏瓜呢，不错就是经验，以往的经验告诉我们的，其实某种意义上讲这就是机器学习，根据以前的经验学习（训练样本）为以后的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习第一讲">
+<meta property="og:url" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/index.html">
+<meta property="og:site_name" content="CPINFO">
+<meta property="og:description" content="一：什么是机器学习1.1：概念__引言：让我们一起来回忆我们曾经买西瓜的经历，先看个头，然后敲一敲，再看看根蒂，然后做出我们的判断，好瓜还是坏瓜。仔细想想我们判断的过程，西瓜的大小，声音，根蒂，通过着一系列的西瓜的属性告诉我们它是好瓜还是坏瓜，为什么这些西瓜的属性可以判断它是好瓜还是坏瓜呢，不错就是经验，以往的经验告诉我们的，其实某种意义上讲这就是机器学习，根据以前的经验学习（训练样本）为以后的">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/1.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/2.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/3.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/4.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/A.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/5.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/b.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/c.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/6.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/b.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/7.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/8.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/9.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/10.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/11.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/12.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/13.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/14.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/17.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/18.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/19.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/15.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/16.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/21.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/22.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/23.jpg">
+<meta property="og:updated_time" content="2017-03-17T04:43:28.445Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习第一讲">
+<meta name="twitter:description" content="一：什么是机器学习1.1：概念__引言：让我们一起来回忆我们曾经买西瓜的经历，先看个头，然后敲一敲，再看看根蒂，然后做出我们的判断，好瓜还是坏瓜。仔细想想我们判断的过程，西瓜的大小，声音，根蒂，通过着一系列的西瓜的属性告诉我们它是好瓜还是坏瓜，为什么这些西瓜的属性可以判断它是好瓜还是坏瓜呢，不错就是经验，以往的经验告诉我们的，其实某种意义上讲这就是机器学习，根据以前的经验学习（训练样本）为以后的">
+<meta name="twitter:image" content="http://cpinsist.xyz/2017/03/12/机器学习第一讲/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '3852e6e48b36f97cdc2aedd291dd6da6',
+      author: 'cp'
+    },
+    algolia: {
+      applicationID: '9KUO585UZV',
+      apiKey: '0b4a0640a74eefe620868de8b35863d3',
+      indexName: 'cpinsist',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到相关 ${query}的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://cpinsist.xyz/2017/03/12/机器学习第一讲/"/>
+
+
+
+
+
+  <title> 机器学习第一讲 | CPINFO </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CPINFO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/12/机器学习第一讲/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPINFO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                机器学习第一讲
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-12T14:53:34+08:00">
+                2017-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/12/机器学习第一讲/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/机器学习第一讲/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/12/机器学习第一讲/" class="leancloud_visitors" data-flag-title="机器学习第一讲">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<h2 id="一：什么是机器学习"><a href="#一：什么是机器学习" class="headerlink" title="一：什么是机器学习"></a>一：什么是机器学习</h2><h3 id="1-1：概念"><a href="#1-1：概念" class="headerlink" title="1.1：概念"></a>1.1：概念</h3><p>__引言：让我们一起来回忆我们曾经买西瓜的经历，先看个头，然后敲一敲，再看看根蒂，然后做出我们的判断，好瓜还是坏瓜。仔细想想我们判断的过程，西瓜的大小，声音，根蒂，通过着一系列的西瓜的属性告诉我们它是好瓜还是坏瓜，为什么这些西瓜的属性可以判断它是好瓜还是坏瓜呢，不错就是<strong>经验</strong>，以往的经验告诉我们的，其实某种意义上讲这就是机器学习，根据以前的经验学习（训练样本）为以后的选择（预测）做判断。<br><a id="more"></a>，<br>下面看几个标准定义：</p>
+<ul>
+<li>机器学习：研究如何通过计算的手段，利用经验来改善系统自身的性能。</li>
+<li>机器学习的本质是空间搜索和函数的泛化<br>一个好的机器学习问题：一个程序被认为可以从经验E中学习，解决任务T，达到性能P，当且仅当，有了经验E后，经过了P的评判，程序在处理T时的性能有所提升。<br>Eg：拿围棋举例，<br>E就是程序上万次的自我练习的经验，T任务就是下棋，P就是和一些新手比赛时，赢得比赛的概率。<h3 id="1-2：机器学习的分类（按照学习方式）"><a href="#1-2：机器学习的分类（按照学习方式）" class="headerlink" title="1.2：机器学习的分类（按照学习方式）"></a>1.2：机器学习的分类（按照学习方式）</h3></li>
+</ul>
+<ul>
+<li>A：监督学习<ul>
+<li>训练的数据是有标签的。</li>
+<li>每组训练数据有一个明确的标识或结果，如对防垃圾邮件系统中“垃圾邮件”“非垃圾邮件”，</li>
+<li>监督式学习的常见应用场景：分类问题和回归问题</li>
+</ul>
+</li>
+<li>B：非监督学习<ul>
+<li>训练的数据是没有标签的；</li>
+<li>用于发掘样本内在结构的联系</li>
+<li>主要用于聚类，关联规则学习：例如 ，我们有一堆球，颜色不同，尺寸也不同；</li>
+</ul>
+</li>
+<li>C：半监督学习<ul>
+<li>训练的数据部分是有标签的部分是没有标签</li>
+<li>模型主要用来预测，先要学习样本内部结构联系</li>
+<li>应用场景：回归和分类</li>
+</ul>
+</li>
+<li>D：强化学习<ul>
+<li>输入的数据作为模型的反馈，并且模型在接受输入必须做出反馈。</li>
+<li>应用领域：动态系统，机器人控制等</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3：机器学习知识图谱"><a href="#1-3：机器学习知识图谱" class="headerlink" title="1.3：机器学习知识图谱"></a>1.3：机器学习知识图谱</h3><p><a href="https://zhuanlan.zhihu.com/p/25075477" target="_blank" rel="external">引自知乎</a></p>
+<center><img src="/2017/03/12/机器学习第一讲/1.png" alt="机器学习知识图谱：引子知乎"></center>
+
+<h2 id="二：模型评估"><a href="#二：模型评估" class="headerlink" title="二：模型评估"></a>二：模型评估</h2><h3 id="2-1：经验误差和过拟合"><a href="#2-1：经验误差和过拟合" class="headerlink" title="2.1：经验误差和过拟合"></a>2.1：经验误差和过拟合</h3><ul>
+<li>经验误差：学习器在训练集上的误差</li>
+<li>泛化误差：学习器在新样本上的误差</li>
+<li>过拟合：（学习能力过强）学习器将训练样本本身的特点当做所有潜在样本都具有的性质过拟合，将会导致其泛化能力差（适应新样本的能力差） </li>
+<li>欠拟合：(学习能力过弱)<br><center><img src="/2017/03/12/机器学习第一讲/2.jpg" alt="过拟合和欠拟合直观表先"></center><h3 id="2-2-评估方法—计算模型的泛化误差。"><a href="#2-2-评估方法—计算模型的泛化误差。" class="headerlink" title="2.2:评估方法—计算模型的泛化误差。"></a>2.2:评估方法—计算模型的泛化误差。</h3></li>
+<li>1：留出法：直接将数据集D划分为两个互斥的结合其中一个作为训练集S另一个作为测试集T。在S上练出模型之后，用T来评估其测试误差，作为泛化误差的估计    </li>
+<li>2：交叉验证法：将数据集划分D为k个大小相同的互斥子集。D=D1UD2U…..Dk  每次用k-1个子集作为训练集，余下的那个作为测试集。这样就可以获得k组训练测试集。<center><img src="/2017/03/12/机器学习第一讲/3.jpg" alt="交叉验证法"></center></li>
+<li>3：自助法<br>每次从样本集合D中挑选一个Dj,将其Copy一份再放回，然后再取，这样进行m次就得到m个样本的数据集D’。将剩余的作为测试样本。</li>
+<li>4：调参和最终模型<h3 id="2-3：性能度量"><a href="#2-3：性能度量" class="headerlink" title="2.3：性能度量"></a>2.3：性能度量</h3></li>
+<li>1：错误率和精度</li>
+<li>2：查准率和查全率</li>
+<li>3：ROC（受试者工作特征）和AUC（Area Under ROC Curve ROC曲线围成的面积）</li>
+<li>4：代价敏感错误率和代价曲线<h3 id="2-4：比较检验"><a href="#2-4：比较检验" class="headerlink" title="2.4：比较检验"></a>2.4：比较检验</h3></li>
+<li>1：假设检验</li>
+<li>2：交叉验证t检验</li>
+<li>3：McNemar检验</li>
+<li>4：Friedman检验和Nemenyi后续检验<h3 id="2-5：偏差和方差"><a href="#2-5：偏差和方差" class="headerlink" title="2.5：偏差和方差"></a>2.5：偏差和方差</h3></li>
+<li>Variance(方差)：估计本身的方差。</li>
+<li>Bias（偏差）：估计的期望和样本数据样本希望得到的回归函数之间的差别。<br>举个例子：具体来讲，我有一个统计量D（比如统计某大学研一学生身高在[0.5-1],[1,1.1],[1.1,1.2]……[1.9,2]之间的人数），这样可以形成一些离散点。然后呢，本校研一有20个班，每个班就都可以拟合成一条估计曲线f(x)，这20条曲线呢，有一个平均值，也就是估计期望（均值）曲线E(f(x,D))。</li>
+</ul>
+<p><strong>variance是指，这20条估计曲线与最后估计期望（均值）之间的距离，也就是估计曲线本身的方差，是不可能为0的。</strong><br><strong>bias是指，20条估计曲线的均值与实际最佳拟合情况之间的距离。</strong></p>
+<center><img src="/2017/03/12/机器学习第一讲/4.jpg" alt="方差和偏差"></center>
+
+<h3 id="三：线性回归"><a href="#三：线性回归" class="headerlink" title="三：线性回归"></a>三：线性回归</h3><h4 id="3-1：基本概念："><a href="#3-1：基本概念：" class="headerlink" title="3.1：基本概念："></a>3.1：基本概念：</h4><p>根据已经有的样本数据拟合出出来一条直线对连续的数据集进行预测</p>
+<ul>
+<li>A：损失函数：损失函数是一种衡量损失和错误（这种损失与“错误地”估计有关，如费用或者设备的损失）程度的函数，说白了就是一种衡量我们所拟合的函数好坏的一种函数。<br>$$ h𝜃(x) = 𝐴=𝜃0+𝜃1∗𝑋 $$     <center><img src="/2017/03/12/机器学习第一讲/A.png" alt="公式1"></center><br>例子：预测房价，假设你现在有重庆房价和其房子大小关系的一系列数据，如下图<br>我们的目标使J(𝜃0,𝜃1)最小！！！<br><center><img src="/2017/03/12/机器学习第一讲/5.jpg" alt="公式1"></center>
+
+</li>
+</ul>
+<h4 id="3-2：梯度下降法"><a href="#3-2：梯度下降法" class="headerlink" title="3.2：梯度下降法"></a>3.2：梯度下降法</h4><center><img src="/2017/03/12/机器学习第一讲/b.png" alt="公式1"></center><br>开始我们假设：𝜃0=0，则<br><center><img src="/2017/03/12/机器学习第一讲/c.png" alt="公式1"></center><br>Target  ： Minimize(J(𝜃1)) 得下图：<br><center><img src="/2017/03/12/机器学习第一讲/6.jpg" alt="梯度下降图"></center><br>我们知道当𝜃1 = 1时，取得最小值。<br>当𝜃0！=0时呢？<br><center><img src="/2017/03/12/机器学习第一讲/b.png" alt="公式1"></center><br>当𝜃0！=0时呢？ J（𝜃）图像就是一个三维的，如右图：<br><center><img src="/2017/03/12/机器学习第一讲/7.jpg" alt="公式1"></center><br>可以看出最低点就是我们要求的点；<br><strong>问题？我们怎么样去找到这个点呢？</strong><br>于是便提出了<em>梯度下降（导数下降）</em><br>gradient descent是指梯度下降，为的是将costfunciton 描绘出之后，让参数沿着梯度下降的方向走，并迭代地不断减小J(theta0，theta1)直到达到一个稳态（J不再减小）<br>梯度下降：<br>如下图，我们绘制出来的cost函数，<br><center><img src="/2017/03/12/机器学习第一讲/8.jpg" alt="公式1"></center><br>加入我们的起点选择在图中的黑圆圈的位置，沿着梯度下降的方式（如图的黑线）走，我们就能找到一个最小值（局部）所以我们可以得到一个参数的更新公式：<br>其中的 ɑ称之为学习率；<br>一样我们先来看看最简单的情况：<br>假设𝜃0=0<br><center><img src="/2017/03/12/机器学习第一讲/9.jpg" alt="公式1"></center><br><center><img src="/2017/03/12/机器学习第一讲/10.jpg" alt="公式1"></center>
+
+<p>同理当𝜃0！=0时，我们再来推，每得到一次参数值我们就计算一个J值，知道J值不再减小，此时的参数值就to是我们要求的值</p>
+<center><img src="/2017/03/12/机器学习第一讲/11.jpg" alt="公式1"></center><br><center><img src="/2017/03/12/机器学习第一讲/12.jpg" alt="公式1"></center>
+
+<h2 id="四：逻辑回归"><a href="#四：逻辑回归" class="headerlink" title="四：逻辑回归"></a>四：逻辑回归</h2><h3 id="4-1：一些概念"><a href="#4-1：一些概念" class="headerlink" title="4.1：一些概念"></a>4.1：一些概念</h3><p>我们先来看一个例子<br>例子：根据肿瘤的尺寸预测病人是否患有癌症（分类问题）<br>如果我们使用线性回归去拟合对于第一幅图的数据集表现还可以<br>线性回归：h𝜃(x) = 𝐴=𝜃0+𝜃1∗𝑋</p>
+<center><img src="/2017/03/12/机器学习第一讲/13.jpg" alt="公式1"></center><br>但是当我们在右上角添加一个元素我们会发现线性回归的模型你不能很好的去解决分类问题：，如下图所示<br><center><img src="/2017/03/12/机器学习第一讲/14.jpg" alt="公式1"></center><br>于是我们便提出了线性回归：<br>它的目的：分类<br>一般情况下，它的输出是离散点的，最为直观的要数二分类问题；就像上面的预测病人是否患有癌症，输出结果只有两种情况：患有癌症，没有患癌症；最早解决这类问题提出来的模型是感知器：对所有的输入特征和权重做点积，将计算的结果和我们所设置的阈值作比较，从而将样本分为两类。<br><center><img src="/2017/03/12/机器学习第一讲/17.jpg" alt="感知机"></center><br><center><img src="/2017/03/12/机器学习第一讲/18.jpg" alt="对应的函数"></center>
+
+<p>从图中可以看出感知机模型存在两个明显的缺点：</p>
+<ul>
+<li>1：如果我们新来一个点为t0+0.01;那么这个点的输出是0还是1呢</li>
+<li>2：函数在t0位置时有一个阶跃，从0-1的突变，导致这个点不连续，应用时对这个点的处理极不方便。<br>于是我们便提出了Sigmod函数，如下图：<br><center><img src="/2017/03/12/机器学习第一讲/19.jpg" alt="公式1"></center><br>它具有以下两个特点：</li>
+<li>1：它的输入从正无穷大到负无穷大对应的输出刚好到0-1之间，正好满足（0，1）分布。使用概率去描述分类器，相对于定阈值要方便很多。</li>
+<li><p>2：单调连续的上升函数，具有很好的连续性。<br>模型如下图所示：</p>
+<center><img src="/2017/03/12/机器学习第一讲/15.jpg" alt="公式1"></center>
+</li>
+<li><p>Sigmoid function:<br>所谓Sigmoid function或Logistic function就是这样一个函数g(z)见上图所示<br>当z&gt;=0时，g(z)&gt;=0.5；（表示y=1）<br>当z&lt;0时，g(z)&lt;0.5（表示y=0）<br>由下图中公式知，给定了数据x和参数θ，y=0和y=1的概率和=1</p>
+<center><img src="/2017/03/12/机器学习第一讲/16.jpg" alt="公式1"></center>
+
+</li>
+</ul>
+<h3 id="4-2：逻辑回归的损失函数"><a href="#4-2：逻辑回归的损失函数" class="headerlink" title="4.2：逻辑回归的损失函数"></a>4.2：逻辑回归的损失函数</h3><center><img src="/2017/03/12/机器学习第一讲/21.jpg" alt="公式1"></center><br>上面已经讲了，H(x)计算的出来的结果可以理解为概率P，那么：<br>H(x1)就是x=x1的条件下y=y1的概率p1，<br>H(x2)就是x=x2的条件下y=y2的概率p2，<br>….<br>H(xn)就是x=xn的条件下y=yn的概率pn，<br>对于已经有的样本（X,Y）和h(x)是什么样的函数是结果最理想呢，<br>就是当P(1)p(2)….P(n)取最大的情况下最好，而损失函数一般为每条数据的损失之和，故而取对数将乘积变成和的形式。<br>加上符号就是为了让最大似然值和最小损失对应起来<br><br>### 4.3：使用梯度下降计算参数值：<br>+ 和线性回归一样，采用梯度下降的方式进行参数的更新<br><center><img src="/2017/03/12/机器学习第一讲/22.jpg" alt="公式1"></center><br> 每一个的参数更新方式如下所示<br><center><img src="/2017/03/12/机器学习第一讲/23.jpg" alt="公式1"></center> 
+
+
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/path/to/wechat-reward-image" alt="cp WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/path/to/alipay-reward-image" alt="cp Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/10/超级数幂/" rel="next" title="超级数幂">
+                <i class="fa fa-chevron-left"></i> 超级数幂
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/12/机器学习第二讲/" rel="prev" title="机器学习第二讲">
+                机器学习第二讲 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/03/12/机器学习第一讲/"
+     data-title="机器学习第一讲"
+     data-content=""
+     data-url="http://cpinsist.xyz/2017/03/12/机器学习第一讲/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/12/机器学习第一讲/"
+           data-title="机器学习第一讲" data-url="http://cpinsist.xyz/2017/03/12/机器学习第一讲/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
+               alt="cp" />
+          <p class="site-author-name" itemprop="name">cp</p>
+           
+              <p class="site-description motion-element" itemprop="description">Don't let slipe away</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/insistcp" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/0af3fd29a08a" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-jianshu"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/#signin" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：什么是机器学习"><span class="nav-number">1.</span> <span class="nav-text">一：什么是机器学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1：概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.1：概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2：机器学习的分类（按照学习方式）"><span class="nav-number">1.2.</span> <span class="nav-text">1.2：机器学习的分类（按照学习方式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3：机器学习知识图谱"><span class="nav-number">1.3.</span> <span class="nav-text">1.3：机器学习知识图谱</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：模型评估"><span class="nav-number">2.</span> <span class="nav-text">二：模型评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1：经验误差和过拟合"><span class="nav-number">2.1.</span> <span class="nav-text">2.1：经验误差和过拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-评估方法—计算模型的泛化误差。"><span class="nav-number">2.2.</span> <span class="nav-text">2.2:评估方法—计算模型的泛化误差。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3：性能度量"><span class="nav-number">2.3.</span> <span class="nav-text">2.3：性能度量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4：比较检验"><span class="nav-number">2.4.</span> <span class="nav-text">2.4：比较检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5：偏差和方差"><span class="nav-number">2.5.</span> <span class="nav-text">2.5：偏差和方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三：线性回归"><span class="nav-number">2.6.</span> <span class="nav-text">三：线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1：基本概念："><span class="nav-number">2.6.1.</span> <span class="nav-text">3.1：基本概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2：梯度下降法"><span class="nav-number">2.6.2.</span> <span class="nav-text">3.2：梯度下降法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四：逻辑回归"><span class="nav-number">3.</span> <span class="nav-text">四：逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1：一些概念"><span class="nav-number">3.1.</span> <span class="nav-text">4.1：一些概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2：逻辑回归的损失函数"><span class="nav-number">3.2.</span> <span class="nav-text">4.2：逻辑回归的损失函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cp</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cpinsist"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("oKG42myw3jGFjWFxah5MGdFV-gzGzoHsz", "ENQtOLOJee8VU3IFw1JWw3ca");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
