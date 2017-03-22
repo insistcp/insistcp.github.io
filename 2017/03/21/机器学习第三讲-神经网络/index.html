@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法," />
+  <meta name="keywords" content="机器学习," />
 
 
 
@@ -87,16 +87,37 @@
 
 
 
-<meta name="description" content="3月10号问题描述: 如果一个数字能表示为p^q(^表示幂运算)且p为一个素数,q为大于1的正整数就称这个数叫做超级素数幂。现在给出一个正整数n,如果n是一个超级素数幂需要找出对应的p,q。">
+<meta name="description" content="一：神经元模型定义：神经网络是由具有适应性的简单单元组成的广泛并行互连的网络，它的组织能够模拟生物神经系统对真实的世界物体做出交互反应。神经网络中基本组成单元是神经元模型，如下图：上图中，神经元接受来自其他n个神经元的输入信号，输入信号通过权重相连接，从而计算出来一个总的的输入值，进而在可我们设定好的阈值进行比较，经过“激励函数”处理，得到相应的输出。起初的激活函数是一种阶跃式函数，（只有0-1两">
 <meta property="og:type" content="article">
-<meta property="og:title" content="超级数幂">
-<meta property="og:url" content="http://cpinsist.xyz/2017/03/10/超级数幂/index.html">
+<meta property="og:title" content="机器学习第三讲-神经网络">
+<meta property="og:url" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/index.html">
 <meta property="og:site_name" content="CPINFO">
-<meta property="og:description" content="3月10号问题描述: 如果一个数字能表示为p^q(^表示幂运算)且p为一个素数,q为大于1的正整数就称这个数叫做超级素数幂。现在给出一个正整数n,如果n是一个超级素数幂需要找出对应的p,q。">
-<meta property="og:updated_time" content="2017-03-17T04:43:39.094Z">
+<meta property="og:description" content="一：神经元模型定义：神经网络是由具有适应性的简单单元组成的广泛并行互连的网络，它的组织能够模拟生物神经系统对真实的世界物体做出交互反应。神经网络中基本组成单元是神经元模型，如下图：上图中，神经元接受来自其他n个神经元的输入信号，输入信号通过权重相连接，从而计算出来一个总的的输入值，进而在可我们设定好的阈值进行比较，经过“激励函数”处理，得到相应的输出。起初的激活函数是一种阶跃式函数，（只有0-1两">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/1.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/4.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/5.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/1.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/2.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/5.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/6.jpg">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/7.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/8.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/10.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/9.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/11.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/13.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/gif.gif">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/gif.gif">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/14.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/15.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/16.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/17.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/18.png">
+<meta property="og:updated_time" content="2017-03-22T14:09:00.210Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="超级数幂">
-<meta name="twitter:description" content="3月10号问题描述: 如果一个数字能表示为p^q(^表示幂运算)且p为一个素数,q为大于1的正整数就称这个数叫做超级素数幂。现在给出一个正整数n,如果n是一个超级素数幂需要找出对应的p,q。">
+<meta name="twitter:title" content="机器学习第三讲-神经网络">
+<meta name="twitter:description" content="一：神经元模型定义：神经网络是由具有适应性的简单单元组成的广泛并行互连的网络，它的组织能够模拟生物神经系统对真实的世界物体做出交互反应。神经网络中基本组成单元是神经元模型，如下图：上图中，神经元接受来自其他n个神经元的输入信号，输入信号通过权重相连接，从而计算出来一个总的的输入值，进而在可我们设定好的阈值进行比较，经过“激励函数”处理，得到相应的输出。起初的激活函数是一种阶跃式函数，（只有0-1两">
+<meta name="twitter:image" content="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/1.jpg">
 
 
 
@@ -124,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="http://cpinsist.xyz/2017/03/10/超级数幂/"/>
+  <link rel="canonical" href="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/"/>
 
 
 
 
 
-  <title> 超级数幂 | CPINFO </title>
+  <title> 机器学习第三讲-神经网络 | CPINFO </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -307,7 +328,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/10/超级数幂/">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cp">
@@ -328,7 +349,7 @@
             
             
               
-                超级数幂
+                机器学习第三讲-神经网络
               
             
           </h1>
@@ -343,8 +364,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-10T10:54:07+08:00">
-                2017-03-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-21T13:38:40+08:00">
+                2017-03-21
               </time>
             
 
@@ -366,8 +387,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
                   </a>
                 </span>
 
@@ -384,8 +405,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/10/超级数幂/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/10/超级数幂/" itemprop="commentCount"></span>
+                <a href="/2017/03/21/机器学习第三讲-神经网络/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/21/机器学习第三讲-神经网络/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -393,7 +414,7 @@
 
           
           
-             <span id="/2017/03/10/超级数幂/" class="leancloud_visitors" data-flag-title="超级数幂">
+             <span id="/2017/03/21/机器学习第三讲-神经网络/" class="leancloud_visitors" data-flag-title="机器学习第三讲-神经网络">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -422,7 +443,51 @@
       
 
       
-        <h3 id="3月10号"><a href="#3月10号" class="headerlink" title="3月10号"></a>3月10号</h3><p>问题描述: 如果一个数字能表示为p^q(^表示幂运算)且p为一个素数,q为大于1的正整数就称这个数叫做超级素数幂。<br>现在给出一个正整数n,如果n是一个超级素数幂需要找出对应的p,q。<br><a id="more"></a>，<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> test.cp;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> 陈鹏</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigE</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 判断该数字是否为素数</div><div class="line">	 * <span class="doctag">@param</span> num</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPriem</span><span class="params">(<span class="keyword">double</span> num)</span></span>&#123;</div><div class="line">		<span class="keyword">int</span> temp = (<span class="keyword">int</span>)Math.pow(num, <span class="number">0.5</span>);</div><div class="line">		<span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">2</span>;i&lt;=temp;i++)&#123;</div><div class="line">			<span class="keyword">if</span>(num%i==<span class="number">0</span>)&#123;</div><div class="line">				flag = <span class="keyword">false</span>;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> flag;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 思路转换：</div><div class="line">	 * 1：一个数可写成m=p^q;其中的q无非就是去2....最多到m/2；</div><div class="line">	 * 2：所以我们可以先讲这个数m依次做开方运算（1/2,1/3,1/4...）由于可能会有效数（开不尽）所以开放后我们还要验证是否能“逆回去”</div><div class="line">	 * 3：如果满足了上面条件，我们在来验证底数是否为素数</div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</div><div class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		<span class="keyword">int</span> number = in.nextInt();</div><div class="line">		<span class="keyword">int</span> max = (<span class="keyword">int</span>) Math.pow(<span class="number">2</span>, <span class="number">18</span>);</div><div class="line">		<span class="keyword">if</span>(number&gt;<span class="number">2</span> &amp;&amp; number&lt;=max)&#123;</div><div class="line">			<span class="keyword">double</span> q = <span class="number">2</span>;</div><div class="line">			<span class="keyword">double</span> p;</div><div class="line">			<span class="comment">//循环开方；从2，3....一直到，开方出来的结果小于2为止</span></div><div class="line">			<span class="keyword">do</span>&#123;</div><div class="line">				</div><div class="line">				p = (<span class="keyword">int</span>)Math.pow(number, (<span class="number">1</span>/q));</div><div class="line">				<span class="keyword">if</span>(number==Math.pow(p, q))&#123;</div><div class="line">					<span class="comment">//判断底数书否为素数</span></div><div class="line">					flag = isPriem(p);</div><div class="line">					<span class="keyword">if</span>(flag)&#123;</div><div class="line">						System.out.println(p+<span class="string">" "</span>+q);</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				</div><div class="line">				q++;</div><div class="line">			&#125;<span class="keyword">while</span>(p&gt;=<span class="number">2</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(!flag)&#123;</div><div class="line">			System.out.println(<span class="string">"No"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <h3 id="一：神经元模型"><a href="#一：神经元模型" class="headerlink" title="一：神经元模型"></a>一：神经元模型</h3><p>定义：神经网络是由具有适应性的简单单元组成的广泛并行互连的网络，它的组织能够模拟生物神经系统对真实的世界物体做出交互反应。<br>神经网络中基本组成单元是神经元模型，如下图：<br><img src="/2017/03/21/机器学习第三讲-神经网络/1.jpg" alt="M-P神经元模型"><br>上图中，神经元接受来自其他n个神经元的输入信号，输入信号通过权重相连接，从而计算出来一个总的的输入值，进而在可我们设定好的阈值进行比较，经过“激励函数”处理，得到相应的输出。起初的激活函数是一种阶跃式函数，（只有0-1两种输出）由于这种函数具有不连续性，不光滑等缺点后来提出了sigmoid函数。（前文已经讲过）<br>这样我们通过连接多个神经元并按照一定的层次进行组织起来，我们就得到了神经网络。<br><a id="more"></a>，</p>
+<h3 id="二：感知机和多层网络"><a href="#二：感知机和多层网络" class="headerlink" title="二：感知机和多层网络"></a>二：感知机和多层网络</h3><ul>
+<li>2.1：感知机：<br>感知机是最早提出来的神经网络模型；它是由两层神经元组成，输入层接受外界信号后（按照一定的权值）传递输出层；输出层是M-P神经元，又称为“阈值逻辑单元”。利用感知机我们可以很容易实现逻辑与或非的运算，<br>更加一般的情况是我们给定训练数据集，权重W_i(i=1,2,3,4)，以及阈值theat,其实theat可以看做是一个固定输入为-1的权重为-W_i+1的神经单元，感知机的学习十分简单，如果我们给定的输入（X_i,y_i）如果，我们输入x_i通过感知机进行训练得出的结果不等于y_i，那么我们感知机将会将权重调整为w_i=w_i+增量；其中增量=学习率<em>（y-y_i）</em>x_i.<br>学习率在（0,1）之间。</li>
+<li>2.2：多层神经网络<br>但是我们很快发现，我们的感知机只有一层（输出层）对输入数据进行处理，它的学习能力是非常有限的，只能解决线性可分问题（如果两类模型是线性可分的，那么存在一个超平面可将他们分开），但是对于线性不可分问题却无能无力如下图d所示。<br>所以我们提出了多层神经网络。（解决非线性可分问题）我们在感知机的输入层和输出层之间又添加了一层隐藏层，如下图所示，这样便可以很好的解决异或问题。<br>多层前馈神经网络：每一层神经元和下一层神经元全连接，神经元之间不存在同层连接，也不存在跨层连接。PS:并不是指网络中的信号不能想=向后传递，而是指网络拓扑结构上不存在环或者回路。如下如所示：<br>神经网络的学习过程其实就是指根据训练集调整神经元之间的“连接权重”以及每一个功能神经元的阈值。</li>
+<li>2.3：神经网络的表示<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/4.jpg" alt="M-P神经元模型"></center><br>这里的第一层表示的是我们输入的xi(i=1,2,3…),ai(i=1,2,3…)表示的是我们的隐藏层，需要注意的是，隐藏层a^2i即是输入层线性组合的sigmoid值又是输出层的sigmoid的变量值。<br>我们将变量x以及中间层的输入值zi向量化如下图<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/5.png" alt="M-P神经元模型"></center><br>其中：z(2)=Θ(1)x，a(2)=g(z(2))<br>或者可以将x表示成a(1)，那么对于输入层a(1)有[x0~x3]4个元素，中间层a(2)有[a(2)0~a(2)3]4个元素（其中令a(2)0=1），则有<br>h(x)= a(3)=g(z(3))<br>z(3)=Θ(2)a(2<br>现在我们可以发现，其实神经网络就像是logistic regression，只不过对于outputlayer我们把logistic regression中的输入向量[x1~x3]变成了中间层的[a(2)1~a(2)3], 即则h(x)如下：<br>h(x)=g(Θ(2)0 a(2)0+Θ(2)1 a(2)1+Θ(2)2 a(2)2+Θ(2)3 a(2)3)<br>这里我们中间层a(2)1又是通过输入层的theat1学习而来的。依次循环我们就可以理解所谓的多层神经网络。</li>
+</ul>
+<h3 id="三：误差逆传播算法"><a href="#三：误差逆传播算法" class="headerlink" title="三：误差逆传播算法"></a>三：误差逆传播算法</h3><p>按照我们上面所讲解的多层神经网络我们来看下图</p>
+<center><img src="/2017/03/21/机器学习第三讲-神经网络/1.png" alt="M-P神经元模型"></center><br>将上图转换成数学表达式如下：<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/2.png" alt="M-P神经元模型"></center><br>其中W^{1}_{11}表示第一层第一个神经元到第二层第一个神经元之间权重，<br>现在我们利用上面的网络结构去拟合一堆数据,此时我们需要使用损失函数来判断我们拟合的结果是好是坏，我们上讲已经谈过逻辑回归的损失函数为(后面那一项是正则化项)：<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/5.jpg" alt="M-P神经元模型"></center><br>据此类推我们呢可以得到神经网络的期望函数如下：<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/6.jpg" alt="M-P神经元模型"></center><br>hypothesis与真实值之间的距离为 每个样本-每个类输出的求和，对参数进行regularization的bias项处理所有参数的平方和<br>为了更加方便理解我们在上面的基先来看一例子<a href="https://www.zhihu.com/question/27239198?rf=24827633" target="_blank" rel="external">引自知乎</a>：<br>我们以求e=(a+b)*(b+1)的偏导[3]为例。<br>它的复合关系画出图可以表示如下：<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/7.png" alt="M-P神经元模型"></center><br>为了求出a=2, b=1时，e的梯度，我们可以先利用偏导数的定义求出不同层之间相邻节点的偏导关系，如下图所示。<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/8.png" alt="M-P神经元模型"></center><br>由图我们呢可以看出想要求出e对a和b的偏导数，我们可以利用一下链式法则求出<br><center><img src="/2017/03/21/机器学习第三讲-神经网络/10.png" alt="M-P神经元模型"><img src="/2017/03/21/机器学习第三讲-神经网络/9.png" alt="M-P神经元模型"></center>
+
+<p>链式法则在上图中的意义是什么呢？<br>其实不难发现，e对a的偏导数的值等于从a到e的路径上的偏导值的乘积，而e对b偏导数的值等于从b到e的路径1(b-c-e)上的偏导值的乘积加上路径2(b-d-e)上的偏导值的乘积。也就是说，对于上层节点p和下层节点q，要求得p对q的偏导数，需要找到从q节点到p节点的所有路径，并且对每条路径，求得该路径上的所有偏导数之乘积，然后将所有路径的 “乘积” 累加起来才能得到的值。<br>大家也许已经注意到，这样做是十分冗余的，因为很多路径被重复访问了。比如上图中，a-c-e和b-c-e就都走了路径c-e。对于权值动则数万的深度模型中的神经网络，这样的冗余所导致的计算量是相当大的。<br>同样是利用链式法则，BP算法则机智地避开了这种冗余，它对于每一个路径只访问一次就能求顶点对所有下层节点的偏导值。正如反向传播(BP)算法的名字说的那样，BP算法是反向(自上往下)来寻找路径的。从最上层的节点e开始，初始值为1，以层为单位进行处理。对于e的下一层的所有子节点，将1乘以e到某个节点路径上的偏导值，并将结果“堆放”在该子节点中。等e所在的层按照这样传播完毕后，第二层的每一个节点都“堆放”些值，然后我们针对每个节点，把它里面所有“堆放”的值求和，就得到了顶点e对该节点的偏导。然后将这些第二层的节点各自作为起始顶点，初始值设为顶点e对它们的偏导值，以”层”为单位重复上述传播过程，即可求出顶点e对每一层节点的偏导数。以上图为例，节点c接受e发送的1<em>2并堆放起来，节点d接受e发送的1</em>3并堆放起来，至此第二层完毕，求出各节点总堆放量并继续向下一层发送。节点c向a发送2<em>1并对堆放起来，节点c向b发送2</em>1并堆放起来，节点d向b发送3<em>1并堆放起来，至此第三层完毕，节点a堆放起来的量为2，节点b堆放起来的量为2</em>1+3*1=5, 即顶点e对b的偏导数为5.<br>（作者很有才）举个不太恰当的例子，如果把上图中的箭头表示欠钱的关系，即c→e表示e欠c的钱。以a, b为例，直接计算e对它们俩的偏导相当于a, b各自去讨薪。a向c讨薪，c说e欠我钱，你向他要。于是a又跨过c去找e。b先向c讨薪，同样又转向e，b又向d讨薪，再次转向e。可以看到，追款之路，充满艰辛，而且还有重复，即a, b 都从c转向e。而BP算法就是主动还款。e把所欠之钱还给c，d。c，d收到钱，乐呵地把钱转发给了a，b，皆大欢喜。<br>相信看完这个例子你对BP算法有了一定的认识了，让我们继续上面的讨论：<br>上面我们已经求得了神经网络的损失函数，那么现在我们要怎么去更新各个分层的权重才能使得整个函数的损失函数达到最低呢？<br>同样我们需要利用梯度下降算法，来更新权重<br>我们定义神经网络的总误差为：</p>
+<p><center><img src="/2017/03/21/机器学习第三讲-神经网络/11.png" alt="M-P神经元模型"></center><br>我们按照如下更新方式进行：</p>
+<p><center><img src="/2017/03/21/机器学习第三讲-神经网络/13.png" alt="M-P神经元模型"></center><br>现在关键部分是求解整体的孙书E对某一个权重Theatij的偏导，就像我们上面所讲的那个例子一样我们采用如下方式：<br>根据backpropagation算法进行梯度的计算，这里引入了error变量δ，该残差表明了该节点的输入对最终输出值的残差产生了多少影响。<br>对于最后一层，我们可以直接算出网络产生的输出与实际值之间的差距，我们将这个差距定义为<img src="/2017/03/21/机器学习第三讲-神经网络/gif.gif" alt="M-P神经元模型">。对于隐藏单元我们如何处理呢？我们将通过计算各层节点残差的加权平均值计算hidden layer的残差。读者可以自己验证下，其实<img src="/2017/03/21/机器学习第三讲-神经网络/gif.gif" alt="M-P神经元模型">就是E对z求导的结果。</p>
+<p><center><img src="/2017/03/21/机器学习第三讲-神经网络/14.png" alt="M-P神经元模型"></center><br>对于前面的每一层，都有</p>
+<p><center><img src="/2017/03/21/机器学习第三讲-神经网络/15.png" alt="M-P神经元模型"></center><br>由此得到第l层第i个节点的残差计算方法：</p>
+<p><center><img src="/2017/03/21/机器学习第三讲-神经网络/16.png" alt="M-P神经元模型"></center><br>由于我们的真实目的是计算总的损失E对权重的偏导数。所以得出下式：</p>
+<p><center><img src="/2017/03/21/机器学习第三讲-神经网络/17.png" alt="M-P神经元模型"></center><br>所以我们可以得到神经网络中权重的update方程：</p>
+<p><center><img src="/2017/03/21/机器学习第三讲-神经网络/18.png" alt="M-P神经元模型"></center><br>所有公式只要自己对着图来仔细推到一遍基本都没有什么问题。</p>
+<h3 id="四：全局最小值和局部最小值"><a href="#四：全局最小值和局部最小值" class="headerlink" title="四：全局最小值和局部最小值"></a>四：全局最小值和局部最小值</h3><p>我们在计算损失函数的最小值时往往会遇到这种情况：我们所求的的值不是全局最小值而是局部最小值，解决办法主要有三种：</p>
+<ul>
+<li>1：以多种不中参数值初始化多个神经网络，按标准方法训练后，取其中误差最小的解作为最终参数。</li>
+<li>2：使用”模拟退火”技术，每一步都以一定的概率接受比当前解更差的结果，从而有助于”跳出”局部极小值。</li>
+<li>3：使用随机梯度下降算法。和梯度下降算法不同，随机梯度下降算法在计算梯度时加入了随机因素，于是，即便陷入局部极小点。它计算出来的梯度仍然不可能为0；这样就有机会跳出局部最小继续搜索。<br>此外遗传算法也常用来训练神经网络以便让其更好的逼近全局最小。</li>
+</ul>
+<h3 id="五：其他常见的神经网络"><a href="#五：其他常见的神经网络" class="headerlink" title="五：其他常见的神经网络"></a>五：其他常见的神经网络</h3><ul>
+<li>5.1：RBF网络<br>  RBF（Radial Basic Function,径向基函数）网络是一种单隐层前馈神经网络，他使用径向基函数作为隐层神经元的激活函数，而输出层则是对隐层神经元输出的线性组合。</li>
+<li>5.2：ART网络<br>  竞争型学习是神经网络中一种常用的无监督学习策略，使用该策略，网络的输出神经元相互竞争，每一刻仅有一个竞争获胜的神经元被激活，其他神经元的状态被抑制，这种机制称之为”胜者通吃”准则。<br>  ART(Adaptive Resonance Theory，自适应谐振理论)网路，是竞争性神经网络的代表，该网络由比较层，识别层，识别阈值和重置模块组成。</li>
+<li>5.3: SOM网络<br>  （Self-Organizing Map子自组织映射）是一种竞争学习型的无监督网络，它能将高维输入数据映射到底维空间(通常为2维空间)，但是它依然保持了高维空间的中数据的拓扑结构（相似的样本点映射到网络输出层中临近神经元）SOM网络中的输出层神经元以矩阵方式排列在二维空间中，每一个神经元都拥有一个权向量，网络在接受到输入向量后，将会确定输出层获胜的神经元，它决定了输出神经元在地位空间中的位置。<br>SOM的训练过程很简单：在接受到一个训练样本后，每个输出层神经元会计算该样本与自身携带的权向量之间的距离，距离最近的神经元成为竞争获胜者，成为最佳匹配单元。然后，最佳匹配单元及其临近神经元的权向量将被调整，以使得这些权向量与当前输入样本的距离缩小，这个过程不断迭代直到收敛。</li>
+<li>5.4：级联相关网络<br>结构自适应网络事先不确定网络结构，将网络结构也作为学习的目标之一，希望在训练的过程中能够找到最符合数据特点的网络结构。级联网络就是结构自适应网络的代表。<br>优点：无需设置网络层数，隐藏神经元数目，训练速度快<br>缺点：数据较小时容易过拟合。</li>
+<li>5.5：Elman网络<br>Elman网络是循环神经网络的一种（RNN Recurrent neural networks）允许网络中出现环形结构，从而可让一些神经元的输出反馈回来作为输入信号，这样的结构和信息反馈过程，使得网络在t时刻的输出状态不仅仅和t时刻的输入有关还和t-1时刻的输入有关。<br>Elman网络的结构和前馈神经网络的结构很相似，但是隐藏神经元的输出被反馈回来，与下一时刻输入神经元的提供的信号一起。</li>
+<li>5.6：Boltzmann Machine<br>神经网络中有一类模型是为网络状态定义一个“能量”，能量最小时网络达到理想状态，而网络的训练就是最小化这个能量函数。它的神经元分为两层：显层和隐层，显层主要用来表示输入和输出的，而隐层则被理解为数据的内在表达。由于波尔茨曼基是一个全连接图，训练网络的复杂度很高，很难用于解决实际任务，为了方便计算，将波尔茨曼基转换受限玻尔兹曼机（RBN-Restricted Boltzmann Machine），仅仅保留显层和隐层之间的连接。从而将波尔茨曼基由完全图转换成二部图。</li>
+</ul>
+<h3 id="六：深度学习："><a href="#六：深度学习：" class="headerlink" title="六：深度学习："></a>六：深度学习：</h3><ul>
+<li>6.1：简单说其实就是将神经网络的隐藏层数增加了，使其能够处理更加复杂的结构的数据；但是当我们的隐藏层数木增加时，便不能在使用经典的BP算法进行训练，因为如果层数增加将会导致我们训练结果没办法进行收敛。</li>
+<li>6.2：无监督逐层训练是多隐层神经网络的主要训练方式；分为“预训练”和“微调”两个阶段。<br>预训练：就是先对隐藏层一层一层进行训练，将上一层训练的结果作为下一层的输入。<br>微调：就是对所有的隐藏层进行训练完成之后，我们再对整个网络进行参数进行“微调”</li>
+<li><p>6.3：常用的深度学习算法有</p>
+<ul>
+<li><p>A：受限玻尔兹曼机（RBM Restricted Beltzmann Machine）</p>
+</li>
+<li><p>B：深度信念网络（DBN Deep Belief Network）<br> 是由多个受限玻尔兹曼机（RBM）组成，RBM被限制为一个可视层和隐层，层与层之间存在连接层内部不存在连接。<br> 训练步骤：<br> 1：先分别训练每一层的神经元（RBM）。确保经过训练后的数据映射到不同维数据中。（预训练）<br> 2：最后一层设置BP神经网络，接受来自上一层（RBM）的输出作为输入，有监督的训练实体关系分类器，并将错误信息自顶向下传播到每一层（RBM）；由于DBN的每一层都只能保证自己该层内的权值对该层特征向量映射达到最优，所以我们将最后一层设置为BP神经网络。（微调）</p>
+</li>
+<li>C：卷积神经网络（Convolutional Neural Networks）<br> 权值共享的网络结构降低了网络模型的复杂度，避免了传统学习算法的复杂的特征提取和数据重建的过程<br> Convolution（卷积）和Pooling(池化)的优势使网络结构中所学习到的参数个数变得更少，并且学习到的特征具有一些不变性。（平移旋转）</li>
+<li>D：堆栈式自动编码器（Stacked Auto-encoders）</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -473,7 +538,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
         </div>
       
@@ -486,8 +551,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/09/HashMap总结/" rel="next" title="HashMap总结">
-                <i class="fa fa-chevron-left"></i> HashMap总结
+              <a href="/2017/03/16/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
@@ -495,10 +560,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/12/机器学习第一讲/" rel="prev" title="机器学习第一讲">
-                机器学习第一讲 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -513,10 +574,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/10/超级数幂/"
-     data-title="超级数幂"
+        <div class="ds-share flat" data-thread-key="2017/03/21/机器学习第三讲-神经网络/"
+     data-title="机器学习第三讲-神经网络"
      data-content=""
-     data-url="http://cpinsist.xyz/2017/03/10/超级数幂/">
+     data-url="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -543,8 +604,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/10/超级数幂/"
-           data-title="超级数幂" data-url="http://cpinsist.xyz/2017/03/10/超级数幂/">
+      <div class="ds-thread" data-thread-key="2017/03/21/机器学习第三讲-神经网络/"
+           data-title="机器学习第三讲-神经网络" data-url="http://cpinsist.xyz/2017/03/21/机器学习第三讲-神经网络/">
       </div>
     
   </div>
@@ -679,7 +740,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3月10号"><span class="nav-number">1.</span> <span class="nav-text">3月10号</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一：神经元模型"><span class="nav-number">1.</span> <span class="nav-text">一：神经元模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二：感知机和多层网络"><span class="nav-number">2.</span> <span class="nav-text">二：感知机和多层网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三：误差逆传播算法"><span class="nav-number">3.</span> <span class="nav-text">三：误差逆传播算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四：全局最小值和局部最小值"><span class="nav-number">4.</span> <span class="nav-text">四：全局最小值和局部最小值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五：其他常见的神经网络"><span class="nav-number">5.</span> <span class="nav-text">五：其他常见的神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六：深度学习："><span class="nav-number">6.</span> <span class="nav-text">六：深度学习：</span></a></li></ol></div>
             
 
           </div>
