@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法," />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -87,24 +87,25 @@
 
 
 
-<meta name="description" content="前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。题目描述：现在有a,b,c三件物品，其中a的重量为1kg，价值为60元，b重量为2kg,价值为100元，c物品重围3kg，价值为120元。现在有一个容量为5kg的背包，">
+<meta name="description" content="问题一：Java的三大特性1：封装封装又称为信息的隐藏，是指利用抽象数据类型将数据和对数据的操作封装到一起的，使其构成一个不可分割的独立实体，数据被保护在抽象数据类性的内部，尽可能的隐藏内部的细节。只保留一些对外的接口。通过这些接口和外界发生联系。优点：
+
+a：实现了专业的分工。  将能够实现某一特定功能的代码封装成一个独立的实体，各个程序在需要使用时直接使用它对外开放的接口进行调用即可。
+b：隐">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态规划求解01背包">
-<meta property="og:url" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/index.html">
+<meta property="og:title" content="Java基础第二篇">
+<meta property="og:url" content="http://cpinsist.xyz/2017/03/27/Java基础第二篇/index.html">
 <meta property="og:site_name" content="CPINFO">
-<meta property="og:description" content="前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。题目描述：现在有a,b,c三件物品，其中a的重量为1kg，价值为60元，b重量为2kg,价值为100元，c物品重围3kg，价值为120元。现在有一个容量为5kg的背包，">
-<meta property="og:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/2.png">
-<meta property="og:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/3.png">
-<meta property="og:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/4.png">
-<meta property="og:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/5.png">
-<meta property="og:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/6.png">
-<meta property="og:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/1.png">
-<meta property="og:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/7.png">
-<meta property="og:updated_time" content="2017-03-24T05:23:02.517Z">
+<meta property="og:description" content="问题一：Java的三大特性1：封装封装又称为信息的隐藏，是指利用抽象数据类型将数据和对数据的操作封装到一起的，使其构成一个不可分割的独立实体，数据被保护在抽象数据类性的内部，尽可能的隐藏内部的细节。只保留一些对外的接口。通过这些接口和外界发生联系。优点：
+
+a：实现了专业的分工。  将能够实现某一特定功能的代码封装成一个独立的实体，各个程序在需要使用时直接使用它对外开放的接口进行调用即可。
+b：隐">
+<meta property="og:updated_time" content="2017-03-27T15:20:33.230Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动态规划求解01背包">
-<meta name="twitter:description" content="前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。题目描述：现在有a,b,c三件物品，其中a的重量为1kg，价值为60元，b重量为2kg,价值为100元，c物品重围3kg，价值为120元。现在有一个容量为5kg的背包，">
-<meta name="twitter:image" content="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/2.png">
+<meta name="twitter:title" content="Java基础第二篇">
+<meta name="twitter:description" content="问题一：Java的三大特性1：封装封装又称为信息的隐藏，是指利用抽象数据类型将数据和对数据的操作封装到一起的，使其构成一个不可分割的独立实体，数据被保护在抽象数据类性的内部，尽可能的隐藏内部的细节。只保留一些对外的接口。通过这些接口和外界发生联系。优点：
+
+a：实现了专业的分工。  将能够实现某一特定功能的代码封装成一个独立的实体，各个程序在需要使用时直接使用它对外开放的接口进行调用即可。
+b：隐">
 
 
 
@@ -132,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/"/>
+  <link rel="canonical" href="http://cpinsist.xyz/2017/03/27/Java基础第二篇/"/>
 
 
 
 
 
-  <title> 动态规划求解01背包 | CPINFO </title>
+  <title> Java基础第二篇 | CPINFO </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -315,7 +316,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/27/Java基础第二篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cp">
@@ -336,7 +337,7 @@
             
             
               
-                动态规划求解01背包
+                Java基础第二篇
               
             
           </h1>
@@ -351,8 +352,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-09T09:45:34+08:00">
-                2017-03-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-27T22:20:17+08:00">
+                2017-03-27
               </time>
             
 
@@ -362,28 +363,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数学/" itemprop="url" rel="index">
-                    <span itemprop="name">数学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -392,8 +371,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/09/动态规划求解01背包/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/09/动态规划求解01背包/" itemprop="commentCount"></span>
+                <a href="/2017/03/27/Java基础第二篇/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/27/Java基础第二篇/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -401,7 +380,7 @@
 
           
           
-             <span id="/2017/03/09/动态规划求解01背包/" class="leancloud_visitors" data-flag-title="动态规划求解01背包">
+             <span id="/2017/03/27/Java基础第二篇/" class="leancloud_visitors" data-flag-title="Java基础第二篇">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -430,33 +409,30 @@
       
 
       
-        <h4 id="前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。"><a href="#前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。" class="headerlink" title="前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。"></a>前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。</h4><p>题目描述：现在有a,b,c三件物品，其中a的重量为1kg，价值为60元，b重量为2kg,价值为100元，c物品重围3kg，价值为120元。现在有一个容量为5kg的背包，问怎么装可以让我们获取的价值最大。<br>但看这个题目，答案很明显，我们只装b和c时所获取的价值最大，但是这个问题怎么让计算机用程序去计算能，这里就用到了我们的动态规划了：<br><a id="more"></a></p>
-<h4 id="1：动态规划"><a href="#1：动态规划" class="headerlink" title="1：动态规划"></a>1：动态规划</h4><pre><code>&lt;1&gt;概念：动态规划和分治法类似，但是适合的使用动态规划求解的问题将其父问题分开之后的自问题往往不是相互独立的；正式由于这一点，才使得我们的动态规划可以利用已经球出来的子问题的解从而减少计算次数，优化算法。
-&lt;2&gt;求解步骤：
-a：找出最有解的性质，并刻画其结构特征。
-    什么是最有子结构：其实就是当问题本身的最优解包含了其自问题的最忧解时，该问题就具有最优子结构性质。
-b：递归的定义最优值。
-    建立求解问题的递归关系；
-c：以自底向上的方式计算出最优质，
-d：根据最优值得到的信息构造最优解
-</code></pre><h4 id="2：根据动态规划的定义再看01背包："><a href="#2：根据动态规划的定义再看01背包：" class="headerlink" title="2：根据动态规划的定义再看01背包："></a>2：根据动态规划的定义再看01背包：</h4><pre><code>此问题形式化描述为：给定c&gt;0,Wi&gt;0,Vi&gt;0,1&lt;=i&lt;=n；找出n元0-1向量（x1,x2……xn），xi属于{0，1}1&lt;=i&lt;=n。
-</code></pre><center><img src="/2017/03/09/动态规划求解01背包/2.png" alt="01背包"></center>
-
-<pre><code>所以说到底01背包就是一个整数规划问题
-</code></pre><center><img src="/2017/03/09/动态规划求解01背包/3.png" alt="01背包"></center>
-
-<pre><code>&lt;1&gt;:分析其最有子结构性质
-0-1背包问题具有最优子结构性质。设（y1,y2,y3,y4….yn）是所给0-1背包问题的一个最优解，则（y2,y3,y4….yn）是下面相应子问题的一个最优解：
-</code></pre><center><img src="/2017/03/09/动态规划求解01背包/4.png" alt="01背包"></center>
-
-<pre><code>&lt;2&gt;:递归关系
-设所给的0-1背包问题的子问题
-</code></pre><center><img src="/2017/03/09/动态规划求解01背包/5.png" alt="01背包"></center>
-
-<pre><code>的最优值为m(i,j),即m(i,j)是背包容量为j时，可以选择物品为i，i-1….,1时0-1背包问题的最优值。由0-1背包问题的最优子结构性质，可以建立计算m（i，j）递归式如下：
-</code></pre><center><img src="/2017/03/09/动态规划求解01背包/6.png" alt="01背包"></center><br>根据以上公式绘制出下图：<br><center><img src="/2017/03/09/动态规划求解01背包/1.png" alt="01背包"></center><br>    我们可以很明显的求出该背包问题的最优解<br>#### 3：Java代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Package</span> </span>&#123;</div><div class="line">	<span class="comment">//表示物品的重量集合</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] weight;</div><div class="line">	<span class="comment">//表示物品的价值的集合</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] value;</div><div class="line">	<span class="comment">//背包的容量</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> total;</div><div class="line">	<span class="comment">//当前的最大价值</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[][] currentSize;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Package</span><span class="params">(<span class="keyword">int</span>[] w,<span class="keyword">int</span>[] v,<span class="keyword">int</span> total)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.weight = w;</div><div class="line">		<span class="keyword">this</span>.value = v;</div><div class="line">		<span class="keyword">this</span>.total = total;</div><div class="line">		<span class="comment">//这里我们需要将物品那一栏加一方便后面的运算!!!关键！！！</span></div><div class="line">		<span class="keyword">int</span> len = w.length+<span class="number">1</span>;</div><div class="line">		currentSize = <span class="keyword">new</span> <span class="keyword">int</span>[len][total+<span class="number">1</span>];</div><div class="line">		<span class="comment">//将第一列参数进行初始化，即当容量为0时的情况，方便后面的计算，</span></div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;len;i++)&#123;</div><div class="line">			currentSize[i][<span class="number">0</span>] = <span class="number">0</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//将第一行的参数进行初始化，表示当物品为0时的情况，方便后面计算</span></div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>;j&lt;total+<span class="number">1</span>;j++)&#123;</div><div class="line">			currentSize[<span class="number">0</span>][j] = <span class="number">0</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findCom</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">int</span> len = currentSize.length;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">1</span>;i&lt;len;i++)&#123;</div><div class="line">			<span class="keyword">int</span> size = currentSize[i].length;</div><div class="line">			<span class="keyword">int</span> w = weight[i-<span class="number">1</span>];</div><div class="line">			<span class="keyword">int</span> v = value[i-<span class="number">1</span>];</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">1</span>;j&lt;size;j++)&#123;</div><div class="line">				<span class="comment">//注意：这里的J表示的是背包当前的容量。W表示当前物品的容量</span></div><div class="line">				<span class="keyword">if</span>(j&gt;=w)&#123;</div><div class="line">					<span class="comment">//这里的比较时纵向比较，即列的比较，表示当装入这个物品时背包的价值</span></div><div class="line">					<span class="comment">// currentSize[i-1][j-w]一定要明白这一行表示什么意思，表示当背包容量为j-w时所对应的最大价值；</span></div><div class="line">					<span class="comment">//currentSize[i-1][j-w]+v表示我们将该物品装入背包后对应的最大价值。</span></div><div class="line">					currentSize[i][j] = Math.max(currentSize[i-<span class="number">1</span>][j], currentSize[i-<span class="number">1</span>][j-w]+v);</div><div class="line">				&#125;<span class="keyword">else</span>&#123;</div><div class="line">					currentSize[i][j] = currentSize[i-<span class="number">1</span>][j];	</div><div class="line">				&#125;	</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//循环打印背包的currentSize中的值</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printT</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">int</span> len = currentSize.length;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</div><div class="line">			<span class="keyword">int</span> size = currentSize[i].length;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>;j&lt;size;j++)&#123;</div><div class="line">				System.out.print(currentSize[i][j]+<span class="string">"   "</span>);</div><div class="line">			&#125;</div><div class="line">			System.out.println();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[] w = &#123;<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>&#125;;</div><div class="line">		<span class="keyword">int</span>[] v = &#123;<span class="number">100</span>,<span class="number">60</span>,<span class="number">120</span>&#125;;</div><div class="line">		<span class="keyword">int</span> to = <span class="number">3</span>;</div><div class="line">		Package p = <span class="keyword">new</span> Package(w, v, to);</div><div class="line">		p.findCom();</div><div class="line">		p.printT();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>最终的结果如下图所示：<br><center><img src="/2017/03/09/动态规划求解01背包/7.png" alt="01背包"></center>
-
-
+        <h4 id="问题一：Java的三大特性"><a href="#问题一：Java的三大特性" class="headerlink" title="问题一：Java的三大特性"></a>问题一：Java的三大特性</h4><h5 id="1：封装"><a href="#1：封装" class="headerlink" title="1：封装"></a>1：封装</h5><p>封装又称为信息的隐藏，是指利用抽象数据类型将数据和对数据的操作封装到一起的，使其构成一个不可分割的独立实体，数据被保护在抽象数据类性的内部，尽可能的隐藏内部的细节。只保留一些对外的接口。通过这些接口和外界发生联系。<br>优点：</p>
+<ul>
+<li>a：实现了专业的分工。<br>  将能够实现某一特定功能的代码封装成一个独立的实体，各个程序在需要使用时直接使用它对外开放的接口进行调用即可。</li>
+<li>b：隐藏了信息的实现细节。<br>  通过访问权限控制可以将不想让用户看到的信息隐藏起来。<a id="more"></a>
+<h5 id="2：继承"><a href="#2：继承" class="headerlink" title="2：继承"></a>2：继承</h5>概念：继承就好比父子关系，继承的类称为子类，被继承的类称为父类<br>目的：实现代码的复用Java语言以单继承多实现的来减少代码的冗余。<br>理解：子类和父类是一种特殊化和一般化的关系，子类是更加详细的父类<br>结果：继承之后子类就拥有了父类的属性和方法，PS：私有属性和构造方法是不能继承的。补充一点：子类可以添加新的方法也可以重写父类的方法，但是对于静态方法子类不能重写父类的。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">father</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">walk</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"我是子类的walk方法"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"我是子类的静态say方法"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Son son = <span class="keyword">new</span> Son();</div><div class="line">		father fson = <span class="keyword">new</span> Son();</div><div class="line">		son.say();</div><div class="line">		son.walk();</div><div class="line">		son.eat();</div><div class="line">		fson.walk();</div><div class="line">		fson.say();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">father</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">char</span> sex;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> age;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"我是父类的静态say方法"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"我是父类的静态eat方法"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">walk</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"我是父类的普通walk方法"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>由以上测试我们可知，对于普通方法而言，子类会统统从父类哪里继承过来，但是对于静态方法而言，虽然也会继承但是并没被重写重写而是被隐藏。只要父类的引用它就还是调用父类的静态方法。子类的引用时如果重写了就调用子类的静态方法，否则调用父类继承来的静态方法。但是记住一般情况下静态方法我们都使用类.方法名的方式对其进行访问。</p>
+<h5 id="3：多态"><a href="#3：多态" class="headerlink" title="3：多态"></a>3：多态</h5><p>Java的多态主要由两种体现形式：</p>
+<ul>
+<li>A：通过继承体现的，就像我们上面讲的，多个子类继承一个父类，并重写了父类的同一个方法，这是我们可以通过一个父类的引用指向我们子类的对象，而调用时，根据我们具体的子类对象调用相应的方法，前提是这些调用的方法是普通方法，静态方法不可以原因上面已经讲过了。</li>
+<li>B：通过在同一个类种定义多个同名方法，但是他们的参数不同，调用这些方法是根据具体参数调用不同的方法。</li>
+</ul>
+<h4 id="问题二：重写和重载"><a href="#问题二：重写和重载" class="headerlink" title="问题二：重写和重载"></a>问题二：重写和重载</h4><ul>
+<li>重写：发生在继承关系中，子类重写父类的方法，要求方法名称，参数列表返回值类型必须相同，并且重写的方法不能够使用比父类更加严格的访问权限。</li>
+<li>重载：在同一类中，方法名称相同，参数不同的方法之间构成重载（返回值无所谓）</li>
+</ul>
+<h4 id="问题三：类的访问权限："><a href="#问题三：类的访问权限：" class="headerlink" title="问题三：类的访问权限："></a>问题三：类的访问权限：</h4><ul>
+<li>1：public：所有类都可访问</li>
+<li>2: protected：同一类，或者同一包，或者不同包但是是其子类可以访问</li>
+<li>3: default: 同一类，同一个包中可以访问。</li>
+<li>4：private 仅仅在同一个类中才可以访问</li>
+</ul>
+<h4 id="问题四：object的各种方法："><a href="#问题四：object的各种方法：" class="headerlink" title="问题四：object的各种方法："></a>问题四：object的各种方法：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>： <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</div><div class="line"><span class="number">2</span>： <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</div><div class="line"><span class="number">3</span>： <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</div><div class="line">        	<span class="keyword">return</span> (<span class="keyword">this</span> == obj);</div><div class="line">    	  &#125;</div><div class="line"><span class="number">4</span>：<span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</div><div class="line"><span class="number">5</span>：<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        	<span class="keyword">return</span> getClass().getName() + <span class="string">"@"</span> + Integer.toHexString(hashCode());</div><div class="line">    	&#125;</div><div class="line"><span class="number">6</span>：<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</div><div class="line"><span class="number">7</span>：<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</div><div class="line"><span class="number">8</span>：<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException</span>;</div><div class="line"><span class="number">9</span>：<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</div><div class="line">        	wait(<span class="number">0</span>);</div><div class="line">    	 &#125;</div><div class="line"><span class="number">10</span>：<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -506,7 +482,7 @@ d：根据最优值得到的信息构造最优解
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
       
@@ -519,15 +495,15 @@ d：根据最优值得到的信息构造最优解
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/03/26/Java基础第一篇/" rel="next" title="Java基础第一篇">
+                <i class="fa fa-chevron-left"></i> Java基础第一篇
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/09/HashMap总结/" rel="prev" title="HashMap总结">
-                HashMap总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -542,10 +518,10 @@ d：根据最优值得到的信息构造最优解
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/09/动态规划求解01背包/"
-     data-title="动态规划求解01背包"
+        <div class="ds-share flat" data-thread-key="2017/03/27/Java基础第二篇/"
+     data-title="Java基础第二篇"
      data-content=""
-     data-url="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/">
+     data-url="http://cpinsist.xyz/2017/03/27/Java基础第二篇/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -572,8 +548,8 @@ d：根据最优值得到的信息构造最优解
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/09/动态规划求解01背包/"
-           data-title="动态规划求解01背包" data-url="http://cpinsist.xyz/2017/03/09/动态规划求解01背包/">
+      <div class="ds-thread" data-thread-key="2017/03/27/Java基础第二篇/"
+           data-title="Java基础第二篇" data-url="http://cpinsist.xyz/2017/03/27/Java基础第二篇/">
       </div>
     
   </div>
@@ -708,7 +684,7 @@ d：根据最优值得到的信息构造最优解
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。"><span class="nav-number">1.</span> <span class="nav-text">前言：01背包作为算法面试最具有代表性的算法之一，几乎大部分的算法面试题我们都可以看到01背包的影子，自己也曾多次看了01背包，但几乎很少将其代码真正原因弄懂，今天在某网站刷题又一次碰到类似题目，表示完全很抓狂，所以下定决心搞定它。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1：动态规划"><span class="nav-number">2.</span> <span class="nav-text">1：动态规划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2：根据动态规划的定义再看01背包："><span class="nav-number">3.</span> <span class="nav-text">2：根据动态规划的定义再看01背包：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：Java的三大特性"><span class="nav-number">1.</span> <span class="nav-text">问题一：Java的三大特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1：封装"><span class="nav-number">1.1.</span> <span class="nav-text">1：封装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2：继承"><span class="nav-number">1.2.</span> <span class="nav-text">2：继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3：多态"><span class="nav-number">1.3.</span> <span class="nav-text">3：多态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二：重写和重载"><span class="nav-number">2.</span> <span class="nav-text">问题二：重写和重载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题三：类的访问权限："><span class="nav-number">3.</span> <span class="nav-text">问题三：类的访问权限：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题四：object的各种方法："><span class="nav-number">4.</span> <span class="nav-text">问题四：object的各种方法：</span></a></li></ol></div>
             
 
           </div>
