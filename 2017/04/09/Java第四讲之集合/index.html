@@ -100,7 +100,9 @@
 2：Collection顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口
 二：set集合">
 <meta property="og:image" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/1.png">
-<meta property="og:updated_time" content="2017-04-09T12:28:45.756Z">
+<meta property="og:image" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/2.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/3.png">
+<meta property="og:updated_time" content="2017-05-01T12:10:04.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java第四讲之集合">
 <meta name="twitter:description" content="概述：Java中的集合相比数组而言具有动态长度已经可以存储多种数据类型的特点。在实际开发中经常会用到，。因此了解其内部具体的实现结构是非常有必要的。比外Java集合中智能存储引用数据类型。
@@ -424,19 +426,75 @@
 <li>A:TreeSet树集，和散列集HashSet有点类似，但是它对散列集进行了改进，其中的元素是有序的，以任意顺序插入，但遍历时元素将按照某种顺序排列；每次插入一个元素时都会将其放入恰当的位置，（采用了数据结构中的红黑树对集合进行排序）其中也不能有重复元素；和HashSet比起来，插入元素时慢，但比数组和链表插入元素时快；当我们关心遍历时元素出现的顺序时，我们就使用TreeSet;当我们不关心元素遍历的顺序时就使用hashSet。<br>TreeSet集合中的元素：是否相等是通过comparator方法比较的，如果返回0表示两个对象的值相等否则不相等。</li>
 </ul>
 </2></li>
-<li><3>:EnumSet是一个枚举类型元素集的高效实现。由于枚举类型只有有限个实例；所以EnumSet内部用位序列实现；如果对应的值在集合中，则相应的位被值为1；EnumSet类没有公共的构造器；可以使用静态工厂方法构造这个集合；可以使用Set接口常用的方法来修改EnumSet;</3></li>
+<li><3>:EnumSet是一个枚举类型元素集的高效实现。由于枚举类型只有有限个实例；所以EnumSet内部用位序列实现；如果对应的值在集合中，则相应的位被值为1；EnumSet类没有公共的构造器；可以使用静态工厂方法构造这个集合；可以使用Set接口常用的方法来修改EnumSet;<br><strong>Ps:Objects是一个被final修饰的类；其中的方法都是静态的方法</strong></3></li>
 </ul>
-<p><strong>Ps:Objects是一个被final修饰的类；其中的方法都是静态的方法</strong></p>
-<h4 id="三：Qeque队列"><a href="#三：Qeque队列" class="headerlink" title="三：Qeque队列"></a>三：Qeque队列</h4><p>Quene是一个接口仅仅声明了一些通用的方法</p>
+<h4 id="三：Qeque队列"><a href="#三：Qeque队列" class="headerlink" title="三：Qeque队列"></a>三：Qeque队列</h4><p>队列是一种数据结构：先进先出，只能从队尾进入，队头删除。Quene是一个接口仅仅声明了一些通用的方法,该接口继承了Collection接口，自然拥有Collection所有的方法，Quene添加元素一般用：offer()(不会抛异常，不会阻塞)，取元素poll()(不会抛异常，不会阻塞),查看元素peek()(不会删除)；可能产生阻塞的操作：入队put()出队：take()</p>
 <ul>
 <li><1>Deque是javaSe1.6引入的，是一个接口，是由ArrayQuene和LinkedList去实现的；这两个类都提供了双端队列。必要时可以改变队列的长度；</1></li>
-<li><2>PriorityQuene:优先级队列：可以按任意顺序插入，但检索时总是按照顺序检索，无论什么时候调用Remove方法，总会删除队列中的最小的元素；采用一种叫做堆的数据结构，堆是以中可以自我调整的二叉树，可以将最小的元素移动到根；和TreeSet中的迭代不同；优先级队列不是按照元素的排列的顺序访问的。而删除却总是删掉剩余元素中优先级数最小的那个元素；</2></li>
+<li><2>PriorityQuene:优先级队列：<br>是一种特殊的数据结构，插入该队列元素的值必须实现Compareble接口，同时不允许插入Null;队列中每一个元素都有优先级，每次出队的是具有最高优先级的元素，称之为降序优先级队列，每次出队时值是最小的，则称之为升序优先级队列，通常我们所说的优先级队列一般是指升序优先级队列。实现方式：有序数组，有序链表，二叉树（二叉堆）</2></li>
 </ul>
-<h4 id="四：List集合"><a href="#四：List集合" class="headerlink" title="四：List集合"></a>四：List集合</h4><p>List:是一个集合接口：它里面的元素也不允许重复，用于描述一个有序的集合；集合中的元素位置十分重要；</p>
+<h4 id="四：List集合"><a href="#四：List集合" class="headerlink" title="四：List集合"></a>四：List集合</h4><p>List:是一个集合接口：它里面的元素也允许重复，用于描述一个有序的集合；集合中的元素位置十分重要；</p>
 <ul>
-<li><1>:LinkedList:同时也实现了Quene接口，是一种链式存储接口，向集合中插入元素时效率较高，但遍历查找元素时的效率较低；链表不支持随机访问，如果要查寻链表中第n个元素，必须从头开始；它的get(index)方法也是一样从头开始；<br>注释：Get方法做了微小的优化；如果索引大于size()/2就从列表尾开始搜索元素；</1></li>
-<li><2>:ArrayList:数组列表，相对于数组而言它的空间必须要提前确定，可以动态的扩展空间；随机查询一个元素比较快，但是删除和插入指定元素的尤其是中间位置的效率较低；需要频繁移动元素；</2></li>
+<li><1>:LinkedList:同时也实现了Dquene接口和List接口，底层是一种双向循环链表的数据结构并且头节点不存放数据，向集合中插入元素时效率较高，但遍历查找元素时的效率较低；链表不支持随机访问，如果要查寻链表中第n个元素，必须从头开始；它的get(index)方法也是一样从头开始；<br>注释：Get方法做了微小的优化；如果索引大于size()/2就从列表尾开始搜索元素；</1></li>
+<li><2>:ArrayList:数组列表，相对于数组而言它的空间必须要提前确定，可以动态的扩展空间；容量不够时，默认扩展50%+1个元素；随机查询一个元素比较快，但是删除和插入指定元素的尤其是中间位置的效率较低；需要频繁移动元素；</2></li>
 <li><3>:Vactor这是一个已经被遗弃的集合：可以让两个线程安全的访问一个对象；但是如果由一个线程访问对象时，vactor将会在同步操作上花费大量的时间；而ArrayList方法是不同步的，因此建议在不需要同步时使用ArrayList；</3></li>
+</ul>
+<h4 id="五：Map集合"><a href="#五：Map集合" class="headerlink" title="五：Map集合:"></a>五：Map集合:</h4><p><strong>映射集是一个集合，它可以快速的查找现有的元素。但是要查看一个元素，我们需要有想要查找元素的精确的副本；这并不是一种非常通用的查找方式；映射表的概念就由此而来；我们知道某些键的信息；并想要查找与之对应的元素；映射表数据结构就是为此设计的；键值对！</strong><br><img src="/2017/04/09/Java第四讲之集合/2.png" alt="映射表集合关系图"><br>Map：映射表集合的顶级父类：它是一种键值对的形式存储数据的集合，根据键值我们就可准确查询我们想要查询的值；</p>
+<ul>
+<li><p><1>:HashMap:一种对键进行散列的映射表。散列或者函数只能作用于键，对键对应的值不能散列也不能进行比较；<br>  Hashmap的原始存储结构是数组加链表的方式，初始容量为16，当我们想向容器中插入元素时，首先会调用我们key的hash函数，为其生成一个键,具体代码如下</1></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">static final int hash(Object key) &#123;</div><div class="line">       int h;</div><div class="line">       return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</div><div class="line">   &#125;</div><div class="line"> 当然这样得到的hash值是不能直接作为数组的索引存储的；太大的；改进后的hashMap初始容量才是16；所以我们还需要对这个得到的值进行一次模运算：</div><div class="line"></div><div class="line">static int indexFor(int hash, int length) &#123;</div><div class="line">       return hash &amp; (length-1);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>  得到的结果便是我们想要存储的bucket的位置；此时如果篮子中没有值，我们直接将值放进这个bucket中键即可；如果有值即产生了我们所谓的hash冲突了；<br>散列表要解决的一个问题就是散列值的冲突问题，通常是两种方法：链表法和开放地址法。<br>链表法就是将相同hash值的对象组织成一个链表放在hash值对应的槽位；<br>开放地址法是通过一个探测算法，当某个槽位已经被占据的情况下继续查找下一个可以使用的槽位。java.util.HashMap采用的链表法的方式，链表是单向链表。形成单链表的核心代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">void addEntry(int hash, K key, V value, int bucketIndex) &#123;</div><div class="line">        if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) &#123;</div><div class="line">            resize(2 * table.length);</div><div class="line">            hash = (null != key) ? hash(key) : 0;</div><div class="line">            bucketIndex = indexFor(hash, table.length);</div><div class="line">        &#125;</div><div class="line">        createEntry(hash, key, value, bucketIndex);</div><div class="line">    &#125;</div><div class="line"> void createEntry(int hash, K key, V value, int bucketIndex) &#123;</div><div class="line">        Entry&lt;K,V&gt; e = table[bucketIndex];</div><div class="line">        table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);</div><div class="line">        size++;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>另外补充，JDK8中对hashmap的存储结构进行优化，当产生hash冲突时扩展结构也可以是红黑数，具体以后再补充，先看下图：<br><img src="/2017/04/09/Java第四讲之集合/3.png" alt="hashmap红黑数"></p>
+<ul>
+<li><2>:TreeMap:树映射表是使用键的正顺序对值进行排列，并将其组织成搜索树；和集合一样如果集合中的元素必须要按照顺序访问我们最好采用散列映射表；查询元素时；散列表相对而言要更快一点</2></li>
+<li><p><3>:WeakHashMap:主要是用来删除没用其他引用的集合中的元素；配合Java的垃圾回收机制；</3></p>
+<ul>
+<li>如果有一个值对应的键已经不再使用了，由于程序中的任何部分没有再出现这个键；所以这个键/值便无法从映射表中删除；此时就要由WeakHashMap去完成这件事情了；当某个键的唯一引用来自于散列表条目时，这张数据结构将和垃圾回收器协作工作一起删除键/值对。</li>
+<li>具体机制：WeakHashMap使用弱引用（weak references）保存键；WeakReference对象将引用保存到另外一个对象中，即使是散列表键；如果某个对象仅仅使用WeakReference引用，就将这个对象的弱引用放入到队列中；WeakHashMap将周期性地检查队列；以便查找新添加的弱引用；</li>
+</ul>
+</li>
+<li><p><4>:LinkedHashMap:链接映射表：</4></p>
+<ul>
+<li><p>底层实现还是使用数组加链表的方式，但是它有额外增加一个头节点head式的双向循环链表，用来记录元素的插入顺序<br>+、LinkedHashMap由于继承自HashMap，因此它具有HashMap的所有特性，同样允许key和value为null。</p>
+</li>
+<li><p>注意源码中的accessOrder标志位，当它false时，表示双向链表中的元素按照Entry插入LinkedHashMap到中的先后顺序排序，即每次put到LinkedHashMap中的Entry都放在双向链表的尾部，这样遍历双向链表时，Entry的输出顺序便和插入的顺序一致，这也是默认的双向链表的存储顺序；当它为true时，表示双向链表中的元素按照访问的先后顺序排列，可以看到，虽然Entry插入链表的顺序依然是按照其put到LinkedHashMap中的顺序，但put和get方法均有调用recordAccess方法（put方法在key相同，覆盖原有的Entry的情况下调用recordAccess方法），该方法判断accessOrder是否为true，如果是，则将当前访问的Entry（put进来的Entry或get出来的Entry）移到双向链表的尾部（key不相同时，put新Entry时，会调用addEntry，它会调用creatEntry，该方法同样将新插入的元素放入到双向链表的尾部，既符合插入的先后顺序，又符合访问的先后顺序，因为这时该Entry也被访问了），否则，什么也不做。</p>
+</li>
+<li><p>linkedHashmap总共有5个构造方法，其中四个默认accessOrder的值都为false表示默认是按照元素插入的顺序访问，但是第5个可以传入accessOrder的值，因此可以指定双向循环链表中元素的排序规则，一般要用LinkedHashMap实现LRU算法，就要用该构造方法，将accessOrder置为true。</p>
+</li>
+<li>LinkedHashMap没有重写hashmap的put方法而是仅仅重写了hashmap的addEntry方法；recordAccess方法。重写hashmap的get方法</li>
+<li>LinkedHashMap是如何实现LRU的。首先，当accessOrder为true时，才会开启按访问顺序排序的模式，才能用来实现LRU算法。我们可以看到，无论是put方法还是get方法，都会导致目标Entry成为最近访问的Entry，因此便把该Entry加入到了双向链表的末尾（get方法通过调用recordAccess方法来实现，put方法在覆盖已有key的情况下，也是通过调用recordAccess方法来实现，在插入新的Entry时，则是通过createEntry中的addBefore方法来实现），这样便把最近使用了的Entry放入到了双向链表的后面，多次操作后，双向链表前面的Entry便是最近没有使用的，这样当节点个数满的时候，删除的最前面的Entry(head后面的那个Entry)便是最近最少使用的Entry。</li>
+</ul>
+</li>
+<li><p><5>:EnumMap:枚举集合映射表：是一个键类型为枚举类型的映射表。它可以直接高效的使用一个值数组实现；使用时需要在构造器中指定键类型；</5></p>
+<ul>
+<li>EnumMap<weekday,employee> personIncharge = new EnumMap&lt;&gt;(Weekday.class)</weekday,employee></li>
+</ul>
+</li>
+<li><p><6>:表示散列集映射表：IdentityHashMap，在这个类中，键的散列值不是用hashCode函数计算而来的，而是使用System.identityHashCode方法计算的；这种方式是Object.hashCode方法根据兑现的内存地址来计算散列码时所使用的方式；而且在对两个对象进行比较时，IdentityHashMap类使用==而不是equals；</6></p>
+<ul>
+<li>也就是说不同的键对象，即使内容相同，也被视为是不同的对象；在实现对象遍历算法时（如对象序列化），这个类十分有用；可以用来跟踪每个对象的遍历情况；</li>
+</ul>
+</li>
+<li><p><7>:SortedMap：是一个集合接口，暴露了用于排除的比较器对象；并且定义方法可以获取集合中的子视图；</7></p>
+</li>
+<li><p><8>：HashTable:和hashMap基本上差不多，以键值对形式存储数据；这里我们主要讲他和HashMap的区别：</8></p>
+<ul>
+<li>A:HashMap几乎可以等价于Hashtable，除了HashMap是非synchronized的，并可以接受null(HashMap可以接受为null的键值(key)和值(value)，而Hashtable则不行)。</li>
+<li>B：HashMap是非synchronized，而Hashtable是synchronized，这意味着Hashtable是线程安全的，多个线程可以共享一个Hashtable；而如果没有正确的同步的话，多个线程是不能共享HashMap的。Java 5提供了ConcurrentHashMap，它是HashTable的替代，比HashTable的扩展性更好。</li>
+<li>C:另一个区别是HashMap的迭代器(Iterator)是fail-fast迭代器，而Hashtable的enumerator迭代器不是fail-fast的。所以当有其它线程改变了HashMap的结构（增加或者移除元素），将会抛出ConcurrentModificationException，但迭代器本身的remove()方法移除元素则不会抛出ConcurrentModificationException异常。但这并不是一个一定发生的行为，要看JVM。这条同样也是Enumeration和Iterator的区别。</li>
+<li>D:由于Hashtable是线程安全的也是synchronized，所以在单线程环境下它比HashMap要慢。如果你不需要同步，只需要单一线程，那么使用HashMap性能要好过Hashtable。</li>
+<li>E:HashMap不能保证随着时间的推移Map中的元素次序是不变的</li>
+</ul>
+</li>
+<li><9>:Properties:Java.util.Properties是对properties这类配置文件的映射。支持key-value类型和xml类型两种。<br>总结：Java集合框架的本身并没有将映射表本身视为一个集合；然而却可以获得映射表的视图；这是实现了一组Collection接口的对象；或者它的子接口视图；<br>有三个视图：分别为键集合，值集合，和键值对集合；（键和键值对形成了一个集合），这是因为在映射表中一个键只能有一个副本；下面的三种方法将返回3个视图：<ul>
+<li>Set keySet();获取映射表中所有的键</li>
+<li>Collection values();获取映射表中所有的值集合</li>
+<li>Set<map.entry<k,v>&gt;   entrySet();获取映射表中所有的键集合和键值对集合；<br>当然还有其他返回视图的方法此处不再赘述！</map.entry<k,v></li>
+</ul>
+</9></li>
 </ul>
 
       
@@ -608,7 +666,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -694,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一：超级父接口"><span class="nav-number">1.</span> <span class="nav-text">一：超级父接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1：Iterable"><span class="nav-number">1.1.</span> <span class="nav-text">1：Iterable:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2：Collection"><span class="nav-number">1.2.</span> <span class="nav-text">2：Collection</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二：set集合："><span class="nav-number">2.</span> <span class="nav-text">二：set集合：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三：Qeque队列"><span class="nav-number">3.</span> <span class="nav-text">三：Qeque队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四：List集合"><span class="nav-number">4.</span> <span class="nav-text">四：List集合</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一：超级父接口"><span class="nav-number">1.</span> <span class="nav-text">一：超级父接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1：Iterable"><span class="nav-number">1.1.</span> <span class="nav-text">1：Iterable:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2：Collection"><span class="nav-number">1.2.</span> <span class="nav-text">2：Collection</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二：set集合："><span class="nav-number">2.</span> <span class="nav-text">二：set集合：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三：Qeque队列"><span class="nav-number">3.</span> <span class="nav-text">三：Qeque队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四：List集合"><span class="nav-number">4.</span> <span class="nav-text">四：List集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五：Map集合"><span class="nav-number">5.</span> <span class="nav-text">五：Map集合:</span></a></li></ol></div>
             
 
           </div>

@@ -308,6 +308,247 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPINFO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/01/Java第五讲之虚拟机/" itemprop="url">
+                  Java第四讲之虚拟机
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-01T22:40:03+08:00">
+                2017-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/01/Java第五讲之虚拟机/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/01/Java第五讲之虚拟机/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/01/Java第五讲之虚拟机/" class="leancloud_visitors" data-flag-title="Java第四讲之虚拟机">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一-什么是Java虚拟机"><a href="#一-什么是Java虚拟机" class="headerlink" title="一.什么是Java虚拟机"></a>一.什么是Java虚拟机</h3><p><strong>一种虚拟抽象化的计算机，运行在真是的计算机之上，主要目的是实现Java的跨平台特性，屏蔽操作系统的异构型，让Java原码经过编译之后（成为字节码）可以直接在虚拟机上运行。它有自己完整的硬件体系架构，CPU，堆栈，等，还具有相应的指令系统</strong><br><img src="/2017/05/01/Java第五讲之虚拟机/1.jpg" alt="Java虚拟机图"></p>
+<p>我们所讲的Java Virtual Machine即JVM = <strong>类加载器+运行时数据区+执行引擎</strong><br>首先我们的java将写好的java文件经过java编译器编译之后成为class文件，由相应的类加载器进行加载到我们JVM中运行时数据区，在类加载器家在期间它会检查该类的合法性，并交由执行引擎进行执行；</p>
+<h3 id="二-JVM的内存模型"><a href="#二-JVM的内存模型" class="headerlink" title="二.JVM的内存模型"></a>二.JVM的内存模型</h3><h4 id="2-1-类加载机制"><a href="#2-1-类加载机制" class="headerlink" title="2.1 类加载机制"></a>2.1 类加载机制</h4><ul>
+<li><1>:加载<ul>
+<li>A：装载类的第一阶段，</li>
+<li>B：取得类的二进制流</li>
+<li>C：转为方法区的数据结构(类的相关信息都实存在方法区中的)</li>
+<li>D：在java堆中生成对应的java.lang.Class对象<br>加载阶段完成之后二进制字节流就按照虚拟机所需的格式存储在方区去中。</li>
+</ul>
+</1></li>
+<li><2>:连接<ul>
+<li>A:验证<br><em>目的：保证Class流格式正确</em><ul>
+<li>a:文件格式验证<br>是否以0xCAFEBABE开头<br>版本号是否合理</li>
+<li>b:元数据验证<br>是否有父类<br>继承了final类<br>非抽象类是否实现了所有的抽象方法</li>
+<li>c:字节码验证（比较复杂）<br>运行检查<br>栈数据类型和操作码数据参数吻合<br>跳转指令到合理的位置</li>
+<li>d:符号引用验证<br>常量池中描述类是否存在<br>访问的方法或者字段是否具有足够的权限</li>
+</ul>
+</li>
+<li>B：准备<br>  分配内存，并为类设置初始值（方法区中）<br>  public static int v =1;<br>  在准备阶段中，v会被值为0；<br>  在初始化的<clinit>中才会被值为1；<br>  对于static final类型，在准备阶段就就会被赋上正确的值<br>  public static final int v =1;</clinit></li>
+<li>C：解析<br>  将符号引用替换直接引用；<br>  什么是符号引用；什么是直接引用<br>  字符串引用对象不一定被加载；<br>  指针或者地址偏移量引用对象一定在内存</li>
+</ul>
+</2></li>
+<li><3>:初始化<ul>
+<li>A：执行类构造器<clinit><br>static 变量 赋值语句<br>static{}语句会被执行</clinit></li>
+<li>B：子类的<clinit>调用前保证父类的<clinit>被调用</clinit></clinit></li>
+<li>C：<clinit>是线程安全的；</clinit></li>
+</ul>
+</3></li>
+</ul>
+<h4 id="2-2-类加载器"><a href="#2-2-类加载器" class="headerlink" title="2.2 类加载器"></a>2.2 类加载器</h4><ul>
+<li><1>：什么是类装载器ClassLoader？<ul>
+<li>a：ClassLoader是一个抽象类</li>
+<li>b：ClassLoader的实例将读入Java字节码将类装载到JVM中</li>
+<li>c：ClassLoader可以定制，满足不同字节码流获取方式</li>
+<li>d：ClassLoader负责类装载过程中的加载阶段；</li>
+</ul>
+</1></li>
+<li><2>:ClassLoader的种类：<ul>
+<li>A：BootStrap ClassLoader （启动ClassLoader）</li>
+<li>B：Extension ClassLoader （扩展ClassLoader）</li>
+<li>C：App ClassLoader （应用ClassLoader/系统ClassLoader）</li>
+<li>D：Custom ClassLoader(自定义ClassLoader)<br>每个ClassLoader都有一个Parent作为父亲<br><img src="http://upload-images.jianshu.io/upload_images/2853119-c7fd5c75feaba225.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><strong>正常情况下：自底向上检查类是否已经加载，自顶线下尝试加载类</strong></li>
+</ul>
+</2></li>
+<li><3>:JDK中ClassLoader默认代理模式<ul>
+<li>概念：从1.2版本开始，Java引入了双亲委托模型，从而更好的保证Java平台的安全。在此模型下，当一个装载器被请求装载某个类时，它首先委托自己的parent去装载，若parent能装载，则返回这个类所对应的Class对象，若parent不能装载，则由parent的请求者去装载。<br><img src="http://upload-images.jianshu.io/upload_images/2853119-5c9aeb50daa7f8e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="双亲模式"></li>
+<li>A:协同模式：<br>类的加载从上往下的；找类时是从底向上的方式；</li>
+<li>B:默认的设计模式的问题：<br>ClassLoader：采用双亲模式问题：<br>顶层的ClassLoader，无法夹杂底层ClassLoader的类；</li>
+<li>C:解决：<br>Thread.setContextClassLoader();<br>  –上下文加载器<br>  –是一个角色<br>  –用来解决顶层ClassLoader无法访问底层ClassLoader的类问题<br>  –基本思想是：在顶层ClassLoader中，传入底层ClassLoader的实例；</li>
+<li>D:双亲模式的破坏：<br>双亲模式是默认的模式，但是不是必须这么做；<br>Tomcat的webAppClassLoader，就会先加载自己的Class,<br>OSGi的ClassLoader形成网状结构，根据需要自由加载Class;<br>子类方法初始法之前，先加载父类的构造方法；</li>
+</ul>
+</3></li>
+</ul>
+<ul>
+<li><4>:ClassLoader的重要方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public Class&lt;?&gt; loadClass(String name) throws ClassNotFoundException</div><div class="line">载入并返回一个Class</div><div class="line">protected final Class&lt;?&gt; defineClass(byte[] b, int off, int len)</div><div class="line">定义一个类，不公开调用</div><div class="line">protected Class&lt;?&gt; findClass(String name) throws ClassNotFoundException</div><div class="line">loadClass回调该方法，自定义ClassLoader的推荐做法</div><div class="line">protected final Class&lt;?&gt; findLoadedClass(String name) </div><div class="line">寻找已经加载的类</div></pre></td></tr></table></figure>
+</4></li>
+</ul>
+<h3 id="三-五大区"><a href="#三-五大区" class="headerlink" title="三.五大区"></a>三.五大区</h3><h4 id="PC寄存器（The-pc-Register）"><a href="#PC寄存器（The-pc-Register）" class="headerlink" title=":PC寄存器（The pc Register）"></a><1>:PC寄存器（The pc Register）</1></h4><ul>
+<li>A：每一个Java线程都有一个PC寄存器，用以记录当前执行到哪个指令。</li>
+<li>B：PC寄存器是用于存储每个线程下一步将执行的JVM指令，如该方法是Java方法，则记录的是正在执行的虚拟机字节码地址，如该方法为native的，则计数器值为空。</li>
+<li>此内存区域是唯一一个在JVM中没有规定任何OutOfMemoryError情况的区域。</li>
+</ul>
+<h4 id="JVM栈（Java-Virtual-MachineStacks）"><a href="#JVM栈（Java-Virtual-MachineStacks）" class="headerlink" title=":JVM栈（Java Virtual MachineStacks）"></a><2>:JVM栈（Java Virtual MachineStacks）</2></h4><p><img src="http://upload-images.jianshu.io/upload_images/2853119-7d76ced3a9f35021.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JVM 栈"></p>
+<ul>
+<li>A：JVM栈是线程私有的，每个线程创建的同时都会创建JVM栈，与程PC寄存器一样，JVM栈的生命周期也是与线程相同。</li>
+<li>B：本质上来讲，它就是个栈。里面存放的元素叫栈帧，栈帧好像很复杂的样子，其实它很简单！它里面具体存放的是执行的函数的一些数据，无非就是局部变量表（保存函数内部的变量）、操作数栈（执行引擎计算时需要），方法出口等等。<br>执行引擎每调用一个函数时，就为这个函数创建一个栈帧，并加入虚拟机栈。换个角度理解，每个函数从调用到执行结束，其实是对应一个栈帧的入栈和出栈。</li>
+<li>C：这个区域可能有两种异常：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError异常（如：将一个函数反复递归自己，最终会出现这种异常）。如果JVM栈可以动态扩展（大部分JVM是可以的），当扩展时无法申请到足够内存则抛出OutOfMemoryError异常。</li>
+<li>D：由于JVM栈是线程私有的，因此其在内存分配上非常高效，并且当线程运行完毕后，这些内存也就被自动回收。</li>
+</ul>
+<h4 id="本地方法栈（Native-Method-Stacks）"><a href="#本地方法栈（Native-Method-Stacks）" class="headerlink" title=":本地方法栈（Native Method Stacks）"></a><3>:本地方法栈（Native Method Stacks）</3></h4><ul>
+<li>A：本地方法栈与虚拟机栈所发挥的作用很相似，他们的区别在于虚拟机栈为执行Java代码方法服务，而本地方法栈是为Native方法服务。</li>
+<li>B：和JVM栈一样，这个区域也会抛出StackOverflowError和OutOfMemoryError异常。</li>
+</ul>
+<h4 id="方法区（Method-Area）"><a href="#方法区（Method-Area）" class="headerlink" title=":方法区（Method Area）"></a><4>:方法区（Method Area）</4></h4><ul>
+<li>A：在方法区中，存储了每个类的信息（包括类的名称、方法信息、字段信息）、静态变量、常量等。如，当程序中通过getName、isInterface等方法来获取信息时，这些数据都来源于方法区域。</li>
+<li>B：方法区域是全局共享的，比如每个线程度可以访问同一个类的静态变量对象。</li>
+<li>C：由于使用反射机制的原因，虚拟机很难推测哪个类信息不再使用，因此这块区域的回收很难！另外，对这块区域主要是针对常量池回收，值得注意的是JDK1.7已经把常量池转移到堆里面了。</li>
+<li>D：同样，当方法区无法满足内存分配需求时，会抛出OutOfMemoryError。下面演示一下造成方法区内的OOM场景。<br>执行之前，可以把虚拟机的参数-XXpermSize和-XX：MaxPermSize限制方法区大小。<br>PS:永久代只有HotSpot虚拟机才有这个概念：并且在JDK1.8已经将永久代取消通过使用元空间替换；</li>
+</ul>
+<h4 id="Java堆"><a href="#Java堆" class="headerlink" title=":Java堆"></a><5>:Java堆</5></h4><p><img src="http://upload-images.jianshu.io/upload_images/2853119-ce9db47db29f898e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JVM堆.png"><br>（1）Java堆（java heap）是JVM所管理的最大的一块内存。它是被所有线程共享的一块内存区域，在虚拟机启动时创建。<br>（2）几乎所有的实例对象都是在这块区域中存放。（JIT编译器貌似不是这样的）。<br>（3）Java堆是垃圾收集管理的主要战场。所有Java堆可以细分为：新生代和老年代。再细致分就是把新生代分为：Eden空间、FromSurvivor空间、To Survivor空间。<br>（4）根据Java虚拟机规范的规定，Java堆可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样。如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将会抛出OutOfMemoryError异常。<br><strong>运行时常量池（Runtime Constant Pool）</strong></p>
+<ul>
+<li>A：存放类中固定的常量信息、方法和Field的引用信息等，其空间从方法区域（JDK1.7后为堆空间）中分配。</li>
+<li>B：Class文件中除了有类的版本、字段、方法、接口等描述等信息外，还有一项信息是常量表(constant_pool table)，用于存放编译期已可知的常量，这部分内容将在类加载后进入方法区（永久代）存放。但是Java语言并不要求常量一定只有编译期预置入Class的常量表的内容才能进入方法区常量池，运行期间也可将新内容放入常量池（最典型的String.intern()方法）。</li>
+<li>C：当常量池无法在申请到内存时会抛出OutOfMemoryError异常，上面也分析过了。</li>
+</ul>
+<p><strong>PS： 堆和栈的区别</strong><br>这是一个非常常见的面试题，主要从以下几个方面来回答。<br>（1）各司其职<br>最主要的区别就是栈内存用来存储局部变量和方法调用。而堆内存用来存储Java中的对象。无论是成员变量、局部变量还是类变量，它们指向的对象都存储在堆内存中。<br>（2）空间大小<br>栈的内存要远远小于堆内存，如果你使用递归的话，那么你的栈很快就会充满并产生StackOverFlowError。<br>（3）独有还是共享<br>栈内存归属于线程的私有内存，每个线程都会有一个栈内存，其存储的变量只能在其所属线程中可见。而堆内存中的对象对所有线程可见，可以被所有线程访问。<br>（4）异常错误<br>如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError异常。<br>如果JVM栈可以动态扩展（大部分JVM是可以的），当扩展时无法申请到足够内存则抛出OutOfMemoryError异常。<br>而堆内存没有可用的空间存储生成的对象，JVM会抛出java.lang.OutOfMemoryError</p>
+<h3 id="四-垃圾收集器"><a href="#四-垃圾收集器" class="headerlink" title="四.垃圾收集器"></a>四.垃圾收集器</h3><h4 id="4-1：收集器种类、适用场景"><a href="#4-1：收集器种类、适用场景" class="headerlink" title="4.1：收集器种类、适用场景"></a>4.1：收集器种类、适用场景</h4><ul>
+<li>A：串行垃圾回收器（Serial Garbage Collector）<br>  串行垃圾回收器通过持有应用程序所有的线程进行工作。它为单线程环境设计，只使用一个单独的线程进行垃圾回收，通过冻结所有应用程序线程进行工作；<br>  <strong>所以可能不适合服务器环境。它最适合的是简单的命令行程序</strong></li>
+<li>B：并行垃圾回收器（Parallel Garbage Collector）<br>  并行垃圾回收器也叫做 throughput collector 。<strong>它是JVM的默认垃圾回收器。</strong>。与串行垃圾回收器不同，它使用多线程进行垃圾回收。相似的是，它也会冻结所有的应用程序线程当执行垃圾回收的时候</li>
+<li><p>C：并发标记扫描垃圾回收器（CMS Garbage Collector）<br>  并发标记垃圾回收使用多线程扫描堆内存，标记需要清理的实例并且清理被标记过的实例。并发标记垃圾回收器只会在下面两种情况持有应用程序所有线程。</p>
+<ul>
+<li>当标记的引用对象在tenured区域；</li>
+<li>在进行垃圾回收的时候，堆内存的数据被并发的改变。</li>
+</ul>
+<p>相比并行垃圾回收器，并发标记扫描垃圾回收器使用更多的CPU来确保程序的吞吐量。如果我们可以为了更好的程序性能分配更多的CPU，那么并发标记上扫描垃圾回收器是更好的选择相比并发垃圾回收器。<br>通过JVM参数 XX:+USeParNewGC 打开并发标记扫描垃圾回收器。</p>
+</li>
+<li><p>D：G1垃圾回收器（G1 Garbage Collector）<br>  G1垃圾回收器适用于堆内存很大的情况，他将堆内存分割成不同的区域，并且并发的对其进行垃圾回收。G1也可以在回收内存之后对剩余的堆内存空间进行压缩。并发扫描标记垃圾回收器在STW情况下压缩内存。G1垃圾回收会优先选择第一块垃圾最多的区域</p>
+<p>  通过JVM参数 –XX:+UseG1GC 使用G1垃圾回收器</p>
+</li>
+</ul>
+<h4 id="4-2：常用gc算法"><a href="#4-2：常用gc算法" class="headerlink" title="4.2：常用gc算法"></a>4.2：常用gc算法</h4><h4 id="4-3：fullGC、MinorGC触发条件"><a href="#4-3：fullGC、MinorGC触发条件" class="headerlink" title="4.3：fullGC、MinorGC触发条件"></a>4.3：fullGC、MinorGC触发条件</h4><h3 id="五-JVM调优"><a href="#五-JVM调优" class="headerlink" title="五.JVM调优"></a>五.JVM调优</h3>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/04/16/3月总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -415,7 +656,8 @@
 <li><6>：开始接触英语口语，单词没有坚持下去。</6></li>
 <li><7>：锻炼也没有按照计划进行。</7></li>
 <li><8>：开始加入实验室的机器学习讨论班，最近对自然语言处理(NLP)比较感兴趣</8></li>
-<li><9>：Java的相关知识点也开始总结了一部分。</9></li></ul>
+<li><9>：Java的相关知识点也开始总结了一部分。</9></li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/04/16/3月总结/#more" rel="contents">
@@ -575,19 +817,75 @@
 <li>A:TreeSet树集，和散列集HashSet有点类似，但是它对散列集进行了改进，其中的元素是有序的，以任意顺序插入，但遍历时元素将按照某种顺序排列；每次插入一个元素时都会将其放入恰当的位置，（采用了数据结构中的红黑树对集合进行排序）其中也不能有重复元素；和HashSet比起来，插入元素时慢，但比数组和链表插入元素时快；当我们关心遍历时元素出现的顺序时，我们就使用TreeSet;当我们不关心元素遍历的顺序时就使用hashSet。<br>TreeSet集合中的元素：是否相等是通过comparator方法比较的，如果返回0表示两个对象的值相等否则不相等。</li>
 </ul>
 </2></li>
-<li><3>:EnumSet是一个枚举类型元素集的高效实现。由于枚举类型只有有限个实例；所以EnumSet内部用位序列实现；如果对应的值在集合中，则相应的位被值为1；EnumSet类没有公共的构造器；可以使用静态工厂方法构造这个集合；可以使用Set接口常用的方法来修改EnumSet;</3></li>
+<li><3>:EnumSet是一个枚举类型元素集的高效实现。由于枚举类型只有有限个实例；所以EnumSet内部用位序列实现；如果对应的值在集合中，则相应的位被值为1；EnumSet类没有公共的构造器；可以使用静态工厂方法构造这个集合；可以使用Set接口常用的方法来修改EnumSet;<br><strong>Ps:Objects是一个被final修饰的类；其中的方法都是静态的方法</strong></3></li>
 </ul>
-<p><strong>Ps:Objects是一个被final修饰的类；其中的方法都是静态的方法</strong></p>
-<h4 id="三：Qeque队列"><a href="#三：Qeque队列" class="headerlink" title="三：Qeque队列"></a>三：Qeque队列</h4><p>Quene是一个接口仅仅声明了一些通用的方法</p>
+<h4 id="三：Qeque队列"><a href="#三：Qeque队列" class="headerlink" title="三：Qeque队列"></a>三：Qeque队列</h4><p>队列是一种数据结构：先进先出，只能从队尾进入，队头删除。Quene是一个接口仅仅声明了一些通用的方法,该接口继承了Collection接口，自然拥有Collection所有的方法，Quene添加元素一般用：offer()(不会抛异常，不会阻塞)，取元素poll()(不会抛异常，不会阻塞),查看元素peek()(不会删除)；可能产生阻塞的操作：入队put()出队：take()</p>
 <ul>
 <li><1>Deque是javaSe1.6引入的，是一个接口，是由ArrayQuene和LinkedList去实现的；这两个类都提供了双端队列。必要时可以改变队列的长度；</1></li>
-<li><2>PriorityQuene:优先级队列：可以按任意顺序插入，但检索时总是按照顺序检索，无论什么时候调用Remove方法，总会删除队列中的最小的元素；采用一种叫做堆的数据结构，堆是以中可以自我调整的二叉树，可以将最小的元素移动到根；和TreeSet中的迭代不同；优先级队列不是按照元素的排列的顺序访问的。而删除却总是删掉剩余元素中优先级数最小的那个元素；</2></li>
+<li><2>PriorityQuene:优先级队列：<br>是一种特殊的数据结构，插入该队列元素的值必须实现Compareble接口，同时不允许插入Null;队列中每一个元素都有优先级，每次出队的是具有最高优先级的元素，称之为降序优先级队列，每次出队时值是最小的，则称之为升序优先级队列，通常我们所说的优先级队列一般是指升序优先级队列。实现方式：有序数组，有序链表，二叉树（二叉堆）</2></li>
 </ul>
-<h4 id="四：List集合"><a href="#四：List集合" class="headerlink" title="四：List集合"></a>四：List集合</h4><p>List:是一个集合接口：它里面的元素也不允许重复，用于描述一个有序的集合；集合中的元素位置十分重要；</p>
+<h4 id="四：List集合"><a href="#四：List集合" class="headerlink" title="四：List集合"></a>四：List集合</h4><p>List:是一个集合接口：它里面的元素也允许重复，用于描述一个有序的集合；集合中的元素位置十分重要；</p>
 <ul>
-<li><1>:LinkedList:同时也实现了Quene接口，是一种链式存储接口，向集合中插入元素时效率较高，但遍历查找元素时的效率较低；链表不支持随机访问，如果要查寻链表中第n个元素，必须从头开始；它的get(index)方法也是一样从头开始；<br>注释：Get方法做了微小的优化；如果索引大于size()/2就从列表尾开始搜索元素；</1></li>
-<li><2>:ArrayList:数组列表，相对于数组而言它的空间必须要提前确定，可以动态的扩展空间；随机查询一个元素比较快，但是删除和插入指定元素的尤其是中间位置的效率较低；需要频繁移动元素；</2></li>
+<li><1>:LinkedList:同时也实现了Dquene接口和List接口，底层是一种双向循环链表的数据结构并且头节点不存放数据，向集合中插入元素时效率较高，但遍历查找元素时的效率较低；链表不支持随机访问，如果要查寻链表中第n个元素，必须从头开始；它的get(index)方法也是一样从头开始；<br>注释：Get方法做了微小的优化；如果索引大于size()/2就从列表尾开始搜索元素；</1></li>
+<li><2>:ArrayList:数组列表，相对于数组而言它的空间必须要提前确定，可以动态的扩展空间；容量不够时，默认扩展50%+1个元素；随机查询一个元素比较快，但是删除和插入指定元素的尤其是中间位置的效率较低；需要频繁移动元素；</2></li>
 <li><3>:Vactor这是一个已经被遗弃的集合：可以让两个线程安全的访问一个对象；但是如果由一个线程访问对象时，vactor将会在同步操作上花费大量的时间；而ArrayList方法是不同步的，因此建议在不需要同步时使用ArrayList；</3></li>
+</ul>
+<h4 id="五：Map集合"><a href="#五：Map集合" class="headerlink" title="五：Map集合:"></a>五：Map集合:</h4><p><strong>映射集是一个集合，它可以快速的查找现有的元素。但是要查看一个元素，我们需要有想要查找元素的精确的副本；这并不是一种非常通用的查找方式；映射表的概念就由此而来；我们知道某些键的信息；并想要查找与之对应的元素；映射表数据结构就是为此设计的；键值对！</strong><br><img src="/2017/04/09/Java第四讲之集合/2.png" alt="映射表集合关系图"><br>Map：映射表集合的顶级父类：它是一种键值对的形式存储数据的集合，根据键值我们就可准确查询我们想要查询的值；</p>
+<ul>
+<li><p><1>:HashMap:一种对键进行散列的映射表。散列或者函数只能作用于键，对键对应的值不能散列也不能进行比较；<br>  Hashmap的原始存储结构是数组加链表的方式，初始容量为16，当我们想向容器中插入元素时，首先会调用我们key的hash函数，为其生成一个键,具体代码如下</1></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">static final int hash(Object key) &#123;</div><div class="line">       int h;</div><div class="line">       return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</div><div class="line">   &#125;</div><div class="line"> 当然这样得到的hash值是不能直接作为数组的索引存储的；太大的；改进后的hashMap初始容量才是16；所以我们还需要对这个得到的值进行一次模运算：</div><div class="line"></div><div class="line">static int indexFor(int hash, int length) &#123;</div><div class="line">       return hash &amp; (length-1);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>  得到的结果便是我们想要存储的bucket的位置；此时如果篮子中没有值，我们直接将值放进这个bucket中键即可；如果有值即产生了我们所谓的hash冲突了；<br>散列表要解决的一个问题就是散列值的冲突问题，通常是两种方法：链表法和开放地址法。<br>链表法就是将相同hash值的对象组织成一个链表放在hash值对应的槽位；<br>开放地址法是通过一个探测算法，当某个槽位已经被占据的情况下继续查找下一个可以使用的槽位。java.util.HashMap采用的链表法的方式，链表是单向链表。形成单链表的核心代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">void addEntry(int hash, K key, V value, int bucketIndex) &#123;</div><div class="line">        if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) &#123;</div><div class="line">            resize(2 * table.length);</div><div class="line">            hash = (null != key) ? hash(key) : 0;</div><div class="line">            bucketIndex = indexFor(hash, table.length);</div><div class="line">        &#125;</div><div class="line">        createEntry(hash, key, value, bucketIndex);</div><div class="line">    &#125;</div><div class="line"> void createEntry(int hash, K key, V value, int bucketIndex) &#123;</div><div class="line">        Entry&lt;K,V&gt; e = table[bucketIndex];</div><div class="line">        table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);</div><div class="line">        size++;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>另外补充，JDK8中对hashmap的存储结构进行优化，当产生hash冲突时扩展结构也可以是红黑数，具体以后再补充，先看下图：<br><img src="/2017/04/09/Java第四讲之集合/3.png" alt="hashmap红黑数"></p>
+<ul>
+<li><2>:TreeMap:树映射表是使用键的正顺序对值进行排列，并将其组织成搜索树；和集合一样如果集合中的元素必须要按照顺序访问我们最好采用散列映射表；查询元素时；散列表相对而言要更快一点</2></li>
+<li><p><3>:WeakHashMap:主要是用来删除没用其他引用的集合中的元素；配合Java的垃圾回收机制；</3></p>
+<ul>
+<li>如果有一个值对应的键已经不再使用了，由于程序中的任何部分没有再出现这个键；所以这个键/值便无法从映射表中删除；此时就要由WeakHashMap去完成这件事情了；当某个键的唯一引用来自于散列表条目时，这张数据结构将和垃圾回收器协作工作一起删除键/值对。</li>
+<li>具体机制：WeakHashMap使用弱引用（weak references）保存键；WeakReference对象将引用保存到另外一个对象中，即使是散列表键；如果某个对象仅仅使用WeakReference引用，就将这个对象的弱引用放入到队列中；WeakHashMap将周期性地检查队列；以便查找新添加的弱引用；</li>
+</ul>
+</li>
+<li><p><4>:LinkedHashMap:链接映射表：</4></p>
+<ul>
+<li><p>底层实现还是使用数组加链表的方式，但是它有额外增加一个头节点head式的双向循环链表，用来记录元素的插入顺序<br>+、LinkedHashMap由于继承自HashMap，因此它具有HashMap的所有特性，同样允许key和value为null。</p>
+</li>
+<li><p>注意源码中的accessOrder标志位，当它false时，表示双向链表中的元素按照Entry插入LinkedHashMap到中的先后顺序排序，即每次put到LinkedHashMap中的Entry都放在双向链表的尾部，这样遍历双向链表时，Entry的输出顺序便和插入的顺序一致，这也是默认的双向链表的存储顺序；当它为true时，表示双向链表中的元素按照访问的先后顺序排列，可以看到，虽然Entry插入链表的顺序依然是按照其put到LinkedHashMap中的顺序，但put和get方法均有调用recordAccess方法（put方法在key相同，覆盖原有的Entry的情况下调用recordAccess方法），该方法判断accessOrder是否为true，如果是，则将当前访问的Entry（put进来的Entry或get出来的Entry）移到双向链表的尾部（key不相同时，put新Entry时，会调用addEntry，它会调用creatEntry，该方法同样将新插入的元素放入到双向链表的尾部，既符合插入的先后顺序，又符合访问的先后顺序，因为这时该Entry也被访问了），否则，什么也不做。</p>
+</li>
+<li><p>linkedHashmap总共有5个构造方法，其中四个默认accessOrder的值都为false表示默认是按照元素插入的顺序访问，但是第5个可以传入accessOrder的值，因此可以指定双向循环链表中元素的排序规则，一般要用LinkedHashMap实现LRU算法，就要用该构造方法，将accessOrder置为true。</p>
+</li>
+<li>LinkedHashMap没有重写hashmap的put方法而是仅仅重写了hashmap的addEntry方法；recordAccess方法。重写hashmap的get方法</li>
+<li>LinkedHashMap是如何实现LRU的。首先，当accessOrder为true时，才会开启按访问顺序排序的模式，才能用来实现LRU算法。我们可以看到，无论是put方法还是get方法，都会导致目标Entry成为最近访问的Entry，因此便把该Entry加入到了双向链表的末尾（get方法通过调用recordAccess方法来实现，put方法在覆盖已有key的情况下，也是通过调用recordAccess方法来实现，在插入新的Entry时，则是通过createEntry中的addBefore方法来实现），这样便把最近使用了的Entry放入到了双向链表的后面，多次操作后，双向链表前面的Entry便是最近没有使用的，这样当节点个数满的时候，删除的最前面的Entry(head后面的那个Entry)便是最近最少使用的Entry。</li>
+</ul>
+</li>
+<li><p><5>:EnumMap:枚举集合映射表：是一个键类型为枚举类型的映射表。它可以直接高效的使用一个值数组实现；使用时需要在构造器中指定键类型；</5></p>
+<ul>
+<li>EnumMap<weekday,employee> personIncharge = new EnumMap&lt;&gt;(Weekday.class)</weekday,employee></li>
+</ul>
+</li>
+<li><p><6>:表示散列集映射表：IdentityHashMap，在这个类中，键的散列值不是用hashCode函数计算而来的，而是使用System.identityHashCode方法计算的；这种方式是Object.hashCode方法根据兑现的内存地址来计算散列码时所使用的方式；而且在对两个对象进行比较时，IdentityHashMap类使用==而不是equals；</6></p>
+<ul>
+<li>也就是说不同的键对象，即使内容相同，也被视为是不同的对象；在实现对象遍历算法时（如对象序列化），这个类十分有用；可以用来跟踪每个对象的遍历情况；</li>
+</ul>
+</li>
+<li><p><7>:SortedMap：是一个集合接口，暴露了用于排除的比较器对象；并且定义方法可以获取集合中的子视图；</7></p>
+</li>
+<li><p><8>：HashTable:和hashMap基本上差不多，以键值对形式存储数据；这里我们主要讲他和HashMap的区别：</8></p>
+<ul>
+<li>A:HashMap几乎可以等价于Hashtable，除了HashMap是非synchronized的，并可以接受null(HashMap可以接受为null的键值(key)和值(value)，而Hashtable则不行)。</li>
+<li>B：HashMap是非synchronized，而Hashtable是synchronized，这意味着Hashtable是线程安全的，多个线程可以共享一个Hashtable；而如果没有正确的同步的话，多个线程是不能共享HashMap的。Java 5提供了ConcurrentHashMap，它是HashTable的替代，比HashTable的扩展性更好。</li>
+<li>C:另一个区别是HashMap的迭代器(Iterator)是fail-fast迭代器，而Hashtable的enumerator迭代器不是fail-fast的。所以当有其它线程改变了HashMap的结构（增加或者移除元素），将会抛出ConcurrentModificationException，但迭代器本身的remove()方法移除元素则不会抛出ConcurrentModificationException异常。但这并不是一个一定发生的行为，要看JVM。这条同样也是Enumeration和Iterator的区别。</li>
+<li>D:由于Hashtable是线程安全的也是synchronized，所以在单线程环境下它比HashMap要慢。如果你不需要同步，只需要单一线程，那么使用HashMap性能要好过Hashtable。</li>
+<li>E:HashMap不能保证随着时间的推移Map中的元素次序是不变的</li>
+</ul>
+</li>
+<li><9>:Properties:Java.util.Properties是对properties这类配置文件的映射。支持key-value类型和xml类型两种。<br>总结：Java集合框架的本身并没有将映射表本身视为一个集合；然而却可以获得映射表的视图；这是实现了一组Collection接口的对象；或者它的子接口视图；<br>有三个视图：分别为键集合，值集合，和键值对集合；（键和键值对形成了一个集合），这是因为在映射表中一个键只能有一个副本；下面的三种方法将返回3个视图：<ul>
+<li>Set keySet();获取映射表中所有的键</li>
+<li>Collection values();获取映射表中所有的值集合</li>
+<li>Set<map.entry<k,v>&gt;   entrySet();获取映射表中所有的键集合和键值对集合；<br>当然还有其他返回视图的方法此处不再赘述！</map.entry<k,v></li>
+</ul>
+</9></li>
 </ul>
 
           
@@ -1076,155 +1374,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/24/两次面试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/24/两次面试/" itemprop="url">
-                  两次面试
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-24T11:41:31+08:00">
-                2017-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/24/两次面试/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/24/两次面试/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/03/24/两次面试/" class="leancloud_visitors" data-flag-title="两次面试">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="算是上学期间第一次参加相对比较正规的面试吧，两次面试个人感觉都挺失败的，简单总结一下，为自己-以后吸取教训吧。"><a href="#算是上学期间第一次参加相对比较正规的面试吧，两次面试个人感觉都挺失败的，简单总结一下，为自己-以后吸取教训吧。" class="headerlink" title="算是上学期间第一次参加相对比较正规的面试吧，两次面试个人感觉都挺失败的，简单总结一下，为自己 以后吸取教训吧。"></a>算是上学期间第一次参加相对比较正规的面试吧，两次面试个人感觉都挺失败的，简单总结一下，为自己 以后吸取教训吧。</h3><h4 id="一：华为大使面试："><a href="#一：华为大使面试：" class="headerlink" title="一：华为大使面试："></a>一：华为大使面试：</h4><h5 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h5><ul>
-<li>1：自我介绍（包括为什来华为？以及你的优势是什么？）</li>
-<li>2：无领导小组讨论（具体内容是一个公司要提高公司的形象，下面有10中方式，对其进行排序）</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/24/两次面试/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1274,7 +1423,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
