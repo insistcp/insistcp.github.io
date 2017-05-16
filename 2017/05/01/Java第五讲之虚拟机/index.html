@@ -90,7 +90,7 @@
 <meta name="description" content="一.什么是Java虚拟机一种虚拟抽象化的计算机，运行在真是的计算机之上，主要目的是实现Java的跨平台特性，屏蔽操作系统的异构型，让Java原码经过编译之后（成为字节码）可以直接在虚拟机上运行。它有自己完整的硬件体系架构，CPU，堆栈，等，还具有相应的指令系统
 我们所讲的Java Virtual Machine即JVM = 类加载器+运行时数据区+执行引擎首先我们的java将写好的java文件经过">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java第四讲之虚拟机">
+<meta property="og:title" content="Java第五 讲之虚拟机">
 <meta property="og:url" content="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/index.html">
 <meta property="og:site_name" content="CPINFO">
 <meta property="og:description" content="一.什么是Java虚拟机一种虚拟抽象化的计算机，运行在真是的计算机之上，主要目的是实现Java的跨平台特性，屏蔽操作系统的异构型，让Java原码经过编译之后（成为字节码）可以直接在虚拟机上运行。它有自己完整的硬件体系架构，CPU，堆栈，等，还具有相应的指令系统
@@ -100,9 +100,14 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-5c9aeb50daa7f8e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-7d76ced3a9f35021.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-ce9db47db29f898e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-05-01T15:49:47.784Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-153c28013f7721be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-dd893aa84082e437.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-3d3c48ebb50272c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-f01128d63809144e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2853119-4917e3883ee9e4f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-05-16T15:13:58.332Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java第四讲之虚拟机">
+<meta name="twitter:title" content="Java第五 讲之虚拟机">
 <meta name="twitter:description" content="一.什么是Java虚拟机一种虚拟抽象化的计算机，运行在真是的计算机之上，主要目的是实现Java的跨平台特性，屏蔽操作系统的异构型，让Java原码经过编译之后（成为字节码）可以直接在虚拟机上运行。它有自己完整的硬件体系架构，CPU，堆栈，等，还具有相应的指令系统
 我们所讲的Java Virtual Machine即JVM = 类加载器+运行时数据区+执行引擎首先我们的java将写好的java文件经过">
 <meta name="twitter:image" content="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/1.jpg">
@@ -139,7 +144,7 @@
 
 
 
-  <title> Java第四讲之虚拟机 | CPINFO </title>
+  <title> Java第五 讲之虚拟机 | CPINFO </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -337,7 +342,7 @@
             
             
               
-                Java第四讲之虚拟机
+                Java第五 讲之虚拟机
               
             
           </h1>
@@ -380,7 +385,7 @@
 
           
           
-             <span id="/2017/05/01/Java第五讲之虚拟机/" class="leancloud_visitors" data-flag-title="Java第四讲之虚拟机">
+             <span id="/2017/05/01/Java第五讲之虚拟机/" class="leancloud_visitors" data-flag-title="Java第五 讲之虚拟机">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -411,6 +416,7 @@
       
         <h3 id="一-什么是Java虚拟机"><a href="#一-什么是Java虚拟机" class="headerlink" title="一.什么是Java虚拟机"></a>一.什么是Java虚拟机</h3><p><strong>一种虚拟抽象化的计算机，运行在真是的计算机之上，主要目的是实现Java的跨平台特性，屏蔽操作系统的异构型，让Java原码经过编译之后（成为字节码）可以直接在虚拟机上运行。它有自己完整的硬件体系架构，CPU，堆栈，等，还具有相应的指令系统</strong><br><img src="/2017/05/01/Java第五讲之虚拟机/1.jpg" alt="Java虚拟机图"></p>
 <p>我们所讲的Java Virtual Machine即JVM = <strong>类加载器+运行时数据区+执行引擎</strong><br>首先我们的java将写好的java文件经过java编译器编译之后成为class文件，由相应的类加载器进行加载到我们JVM中运行时数据区，在类加载器家在期间它会检查该类的合法性，并交由执行引擎进行执行；</p>
+<a id="more"></a>
 <h3 id="二-JVM的内存模型"><a href="#二-JVM的内存模型" class="headerlink" title="二.JVM的内存模型"></a>二.JVM的内存模型</h3><h4 id="2-1-类加载机制"><a href="#2-1-类加载机制" class="headerlink" title="2.1 类加载机制"></a>2.1 类加载机制</h4><ul>
 <li><1>:加载<ul>
 <li>A：装载类的第一阶段，</li>
@@ -509,7 +515,42 @@
 <p>  通过JVM参数 –XX:+UseG1GC 使用G1垃圾回收器</p>
 </li>
 </ul>
-<h4 id="4-2：常用gc算法"><a href="#4-2：常用gc算法" class="headerlink" title="4.2：常用gc算法"></a>4.2：常用gc算法</h4><h4 id="4-3：fullGC、MinorGC触发条件"><a href="#4-3：fullGC、MinorGC触发条件" class="headerlink" title="4.3：fullGC、MinorGC触发条件"></a>4.3：fullGC、MinorGC触发条件</h4><h3 id="五-JVM调优"><a href="#五-JVM调优" class="headerlink" title="五.JVM调优"></a>五.JVM调优</h3>
+<h4 id="4-2：常用gc算法"><a href="#4-2：常用gc算法" class="headerlink" title="4.2：常用gc算法"></a>4.2：常用gc算法</h4><ul>
+<li>1：引用计数法<ul>
+<li>A:概念:<br>引用计数器的实现很简单，对于一个对象A，只要有任何一个对象引用了A，则A的引用计数器就加1，当引用失效时，引用计数器就减1。只要对象A的引用计数器的值为0，则对象A就不可能再被使用。</li>
+<li>B:引用计数法的问题</li>
+<li>引用和去引用伴随加法和减法，影响性能</li>
+<li>很难处理循环引用</li>
+</ul>
+</li>
+<li><p>2：标记-清除法</p>
+<ul>
+<li>A：概念：<br>标记-清除算法是现代垃圾回收算法的思想基础。标记-清除算法将垃圾回收分为两个阶段：标记阶段和清除阶段。一种可行的实现是，在标记阶段，首先通过根节点，标记所有从根节点开始的可达对象。因此，未被标记的对象就是未被引用的垃圾对象。然后，在清除阶段，清除所有未被标记的对象。<br><img src="http://upload-images.jianshu.io/upload_images/2853119-153c28013f7721be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><img src="http://upload-images.jianshu.io/upload_images/2853119-dd893aa84082e437.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+<li>B:特点：<br>标记-压缩算法适合用于存活对象较多的场合，如老年代。它在标记-清除算法的基础上做了一些优化。和标记-清除算法一样，标记-压缩算法也首先需要从根节点开始，对所有可达对象做一次标记。但之后，它并不简单的清理未标记的对象，而是将所有的存活对象压缩到内存的一端。之后，清理边界外所有的空间。</li>
+</ul>
+</li>
+<li><p>3：标记压缩法<br><img src="http://upload-images.jianshu.io/upload_images/2853119-3d3c48ebb50272c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</li>
+<li><p>4：标记复制法</p>
+<ul>
+<li>A：概念：<br>与标记-清除算法相比，复制算法是一种相对高效的回收方法<br>将原有的内存空间分为两块，每次只使用其中一块，在垃圾回收时，将正在使用的内存中的存活对象复制到未使用的内存块中，之后，清除正在使用的内存块中的所有对象，交换两个内存的角色，完成垃圾回收；</li>
+<li>B：特点：<br>不适用于存活对象较多的场合如老年代；<br>复制算法的最大问题是：空间浪费 整合标记清理思想<br><img src="http://upload-images.jianshu.io/upload_images/2853119-f01128d63809144e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><img src="http://upload-images.jianshu.io/upload_images/2853119-4917e3883ee9e4f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+</ul>
+</li>
+</ul>
+<h4 id="4-3：fullGC、MinorGC触发条件"><a href="#4-3：fullGC、MinorGC触发条件" class="headerlink" title="4.3：fullGC、MinorGC触发条件"></a>4.3：fullGC、MinorGC触发条件</h4><p>Java的堆又被细分为年轻带（Eden+Survior）和年老带（Tenured/Old）<br>从年轻代空间（包括Eden和Survivor区域）回收内存被称为 Minor GC，对老年代GC称为Major GC,而Full GC是对整个堆来说的。Full GC出发的条件为：</p>
+<ul>
+<li>A：System.gc()</li>
+<li>B: 老年带空间不足（Tenured）</li>
+<li>C: 永生带空间不足（运行时数据区的方法区）</li>
+<li>D：CMS GC时出现promotion failed和concurrent mode failure</li>
+<li>E：统计得到的Minor GC晋升到旧生代的平均大小大于老年代的剩余空间</li>
+<li>F: 堆中分配很大的对象</li>
+</ul>
+<p>Minor GC触发条件：当Eden区满时，触发Minor GC</p>
+<h3 id="五-JVM调优"><a href="#五-JVM调优" class="headerlink" title="五.JVM调优"></a>五.JVM调优</h3><p><a href="http://pengjiaheng.iteye.com/blog/552456" target="_blank" rel="external">JVM调优策略</a></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="http://blog.csdn.net/chenleixing/article/details/46706039" target="_blank" rel="external">触发JVM进行Full GC的情况及应对策略</a></p>
+
       
     </div>
 
@@ -596,7 +637,7 @@
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2017/05/01/Java第五讲之虚拟机/"
-     data-title="Java第四讲之虚拟机"
+     data-title="Java第五 讲之虚拟机"
      data-content=""
      data-url="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/">
   <div class="ds-share-inline">
@@ -626,7 +667,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2017/05/01/Java第五讲之虚拟机/"
-           data-title="Java第四讲之虚拟机" data-url="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/">
+           data-title="Java第五 讲之虚拟机" data-url="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/">
       </div>
     
   </div>
@@ -761,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-什么是Java虚拟机"><span class="nav-number">1.</span> <span class="nav-text">一.什么是Java虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-JVM的内存模型"><span class="nav-number">2.</span> <span class="nav-text">二.JVM的内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-类加载机制"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 类加载机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-类加载器"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 类加载器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-五大区"><span class="nav-number">3.</span> <span class="nav-text">三.五大区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PC寄存器（The-pc-Register）"><span class="nav-number">3.1.</span> <span class="nav-text">:PC寄存器（The pc Register）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM栈（Java-Virtual-MachineStacks）"><span class="nav-number">3.2.</span> <span class="nav-text">:JVM栈（Java Virtual MachineStacks）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地方法栈（Native-Method-Stacks）"><span class="nav-number">3.3.</span> <span class="nav-text">:本地方法栈（Native Method Stacks）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法区（Method-Area）"><span class="nav-number">3.4.</span> <span class="nav-text">:方法区（Method Area）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java堆"><span class="nav-number">3.5.</span> <span class="nav-text">:Java堆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-垃圾收集器"><span class="nav-number">4.</span> <span class="nav-text">四.垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1：收集器种类、适用场景"><span class="nav-number">4.1.</span> <span class="nav-text">4.1：收集器种类、适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2：常用gc算法"><span class="nav-number">4.2.</span> <span class="nav-text">4.2：常用gc算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3：fullGC、MinorGC触发条件"><span class="nav-number">4.3.</span> <span class="nav-text">4.3：fullGC、MinorGC触发条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-JVM调优"><span class="nav-number">5.</span> <span class="nav-text">五.JVM调优</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-什么是Java虚拟机"><span class="nav-number">1.</span> <span class="nav-text">一.什么是Java虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-JVM的内存模型"><span class="nav-number">2.</span> <span class="nav-text">二.JVM的内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-类加载机制"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 类加载机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-类加载器"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 类加载器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-五大区"><span class="nav-number">3.</span> <span class="nav-text">三.五大区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PC寄存器（The-pc-Register）"><span class="nav-number">3.1.</span> <span class="nav-text">:PC寄存器（The pc Register）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM栈（Java-Virtual-MachineStacks）"><span class="nav-number">3.2.</span> <span class="nav-text">:JVM栈（Java Virtual MachineStacks）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地方法栈（Native-Method-Stacks）"><span class="nav-number">3.3.</span> <span class="nav-text">:本地方法栈（Native Method Stacks）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法区（Method-Area）"><span class="nav-number">3.4.</span> <span class="nav-text">:方法区（Method Area）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java堆"><span class="nav-number">3.5.</span> <span class="nav-text">:Java堆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-垃圾收集器"><span class="nav-number">4.</span> <span class="nav-text">四.垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1：收集器种类、适用场景"><span class="nav-number">4.1.</span> <span class="nav-text">4.1：收集器种类、适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2：常用gc算法"><span class="nav-number">4.2.</span> <span class="nav-text">4.2：常用gc算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3：fullGC、MinorGC触发条件"><span class="nav-number">4.3.</span> <span class="nav-text">4.3：fullGC、MinorGC触发条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-JVM调优"><span class="nav-number">5.</span> <span class="nav-text">五.JVM调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>

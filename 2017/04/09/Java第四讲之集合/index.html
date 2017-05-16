@@ -89,26 +89,23 @@
 
 <meta name="description" content="概述：Java中的集合相比数组而言具有动态长度已经可以存储多种数据类型的特点。在实际开发中经常会用到，。因此了解其内部具体的实现结构是非常有必要的。比外Java集合中智能存储引用数据类型。
 一：超级父接口1：Iterable:它是一个泛型接口这个接口中仅仅有一个方法，iterator获得一个迭代器
-2：Collection顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口
-二：set集合">
+2：Collection顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java第四讲之集合">
 <meta property="og:url" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/index.html">
 <meta property="og:site_name" content="CPINFO">
 <meta property="og:description" content="概述：Java中的集合相比数组而言具有动态长度已经可以存储多种数据类型的特点。在实际开发中经常会用到，。因此了解其内部具体的实现结构是非常有必要的。比外Java集合中智能存储引用数据类型。
 一：超级父接口1：Iterable:它是一个泛型接口这个接口中仅仅有一个方法，iterator获得一个迭代器
-2：Collection顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口
-二：set集合">
+2：Collection顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口">
 <meta property="og:image" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/1.png">
 <meta property="og:image" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/2.png">
 <meta property="og:image" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/3.png">
-<meta property="og:updated_time" content="2017-05-01T12:10:04.256Z">
+<meta property="og:updated_time" content="2017-05-16T15:15:05.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java第四讲之集合">
 <meta name="twitter:description" content="概述：Java中的集合相比数组而言具有动态长度已经可以存储多种数据类型的特点。在实际开发中经常会用到，。因此了解其内部具体的实现结构是非常有必要的。比外Java集合中智能存储引用数据类型。
 一：超级父接口1：Iterable:它是一个泛型接口这个接口中仅仅有一个方法，iterator获得一个迭代器
-2：Collection顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口
-二：set集合">
+2：Collection顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口">
 <meta name="twitter:image" content="http://cpinsist.xyz/2017/04/09/Java第四讲之集合/1.png">
 
 
@@ -415,7 +412,7 @@
       
         <p>概述：Java中的集合相比数组而言具有动态长度已经可以存储多种数据类型的特点。在实际开发中经常会用到，。因此了解其内部具体的实现结构是非常有必要的。比外Java集合中智能存储引用数据类型。<br><img src="/2017/04/09/Java第四讲之集合/1.png" alt="继承关系图"></p>
 <h4 id="一：超级父接口"><a href="#一：超级父接口" class="headerlink" title="一：超级父接口"></a>一：超级父接口</h4><h5 id="1：Iterable"><a href="#1：Iterable" class="headerlink" title="1：Iterable:"></a>1：Iterable:</h5><p>它是一个泛型接口这个接口中仅仅有一个方法，iterator获得一个迭代器</p>
-<h5 id="2：Collection"><a href="#2：Collection" class="headerlink" title="2：Collection"></a>2：Collection</h5><p>顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口</p>
+<h5 id="2：Collection"><a href="#2：Collection" class="headerlink" title="2：Collection"></a>2：Collection</h5><p>顶级集合类其中包含了各种操作集合的方法，同样也是一个泛型接口<br><a id="more"></a></p>
 <h4 id="二：set集合："><a href="#二：set集合：" class="headerlink" title="二：set集合："></a>二：set集合：</h4><p>set也是一个泛型接口，它以及他的孩子中不允许有重复的元素，集合内部元素没有顺序，并且访问时也不是按照元素添加的顺序进行访问，最多包含一个 null 元素。</p>
 <ul>
 <li><1>:hashSet:是一个基于散列表（数组+链表）的集合：它里面的元素在遍历时，依次访问所有的桶，由于散列将元素分配在表中的各个位置，所以访问的顺序时随机的；只有当我们不关心遍历的顺序时才使用它；在HashSet集合中，判断两个元素相同的标准是：两个对象通过equals()方法相等，且HashCode()方法的返回值也相等。如果有两个元素通过equals()方法比较相等，而HashCode()的返回值不同，HashSet会将这两个对象保存在不同的地方。<ul>
