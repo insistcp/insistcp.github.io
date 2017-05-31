@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="机器学习," />
 
 
 
@@ -87,15 +87,27 @@
 
 
 
-<meta name="description" content="Don&apos;t let slipe away">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CPINFO">
-<meta property="og:url" content="http://cpinsist.xyz/index.html">
+<meta name="description" content="一.问题描述传统的机器学习依赖于特征工程，因为我们在实施我们的算法时往往都是利用特征量。但是特征的提取往往耗时耗力，并且部分特征提取需要相对专业的人士才可以进行。深度学习则可以通过算法解决这个繁琐的特征提取过程。深度学习模仿人脑的逐层抽象的过程，从最最简单的概念到更高层抽象的概念：其中最重要两点：
+
+1：无监督学习，即我们不需要标注数据就可以对数据组织形式进行一定程度的学习，
+2：逐层抽象，特征是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机">
+<meta property="og:url" content="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/index.html">
 <meta property="og:site_name" content="CPINFO">
-<meta property="og:description" content="Don&apos;t let slipe away">
+<meta property="og:description" content="一.问题描述传统的机器学习依赖于特征工程，因为我们在实施我们的算法时往往都是利用特征量。但是特征的提取往往耗时耗力，并且部分特征提取需要相对专业的人士才可以进行。深度学习则可以通过算法解决这个繁琐的特征提取过程。深度学习模仿人脑的逐层抽象的过程，从最最简单的概念到更高层抽象的概念：其中最重要两点：
+
+1：无监督学习，即我们不需要标注数据就可以对数据组织形式进行一定程度的学习，
+2：逐层抽象，特征是">
+<meta property="og:image" content="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/relu.jpeg">
+<meta property="og:updated_time" content="2017-05-31T12:39:26.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CPINFO">
-<meta name="twitter:description" content="Don&apos;t let slipe away">
+<meta name="twitter:title" content="Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机">
+<meta name="twitter:description" content="一.问题描述传统的机器学习依赖于特征工程，因为我们在实施我们的算法时往往都是利用特征量。但是特征的提取往往耗时耗力，并且部分特征提取需要相对专业的人士才可以进行。深度学习则可以通过算法解决这个繁琐的特征提取过程。深度学习模仿人脑的逐层抽象的过程，从最最简单的概念到更高层抽象的概念：其中最重要两点：
+
+1：无监督学习，即我们不需要标注数据就可以对数据组织形式进行一定程度的学习，
+2：逐层抽象，特征是">
+<meta name="twitter:image" content="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/relu.jpeg">
 
 
 
@@ -123,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://cpinsist.xyz/"/>
+  <link rel="canonical" href="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/"/>
 
 
 
 
 
-  <title> CPINFO </title>
+  <title> Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机 | CPINFO </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,9 +166,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -297,9 +307,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -329,10 +339,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/" itemprop="url">
-                  Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机
-                </a>
+                Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机
               
             
           </h1>
@@ -404,9 +411,7 @@
       
 
       
-        
-          
-            <h3 id="一-问题描述"><a href="#一-问题描述" class="headerlink" title="一.问题描述"></a>一.问题描述</h3><p>传统的机器学习依赖于特征工程，因为我们在实施我们的算法时往往都是利用特征量。但是特征的提取往往耗时耗力，并且部分特征提取需要相对专业的人士才可以进行。深度学习则可以通过算法解决这个繁琐的特征提取过程。深度学习模仿人脑的逐层抽象的过程，从最最简单的概念到更高层抽象的概念：其中最重要两点：</p>
+        <h3 id="一-问题描述"><a href="#一-问题描述" class="headerlink" title="一.问题描述"></a>一.问题描述</h3><p>传统的机器学习依赖于特征工程，因为我们在实施我们的算法时往往都是利用特征量。但是特征的提取往往耗时耗力，并且部分特征提取需要相对专业的人士才可以进行。深度学习则可以通过算法解决这个繁琐的特征提取过程。深度学习模仿人脑的逐层抽象的过程，从最最简单的概念到更高层抽象的概念：其中最重要两点：</p>
 <ul>
 <li>1：无监督学习，即我们不需要标注数据就可以对数据组织形式进行一定程度的学习，</li>
 <li>2：逐层抽象，特征是需要不断抽象的。</li>
@@ -436,786 +441,112 @@
 <h3 id="五：代码"><a href="#五：代码" class="headerlink" title="五：代码"></a>五：代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">#-*- coding: UTF-8 -*-</div><div class="line"></div><div class="line"># Create the model</div><div class="line">from tensorflow.examples.tutorials.mnist import input_data</div><div class="line">import tensorflow as tf</div><div class="line">mnist = input_data.read_data_sets(&quot;MNIST_data/&quot;, one_hot=True)</div><div class="line">sess = tf.InteractiveSession()</div><div class="line"># 输入神经元的个数</div><div class="line">in_units = 784</div><div class="line"># 隐藏层神经元的个数</div><div class="line">h1_units = 300</div><div class="line"># 输入层到隐藏层权重矩阵以及偏置：将权重初始化为一个标准差为0.1的正态分布。</div><div class="line">W1 = tf.Variable(tf.truncated_normal([in_units, h1_units], stddev=0.1))</div><div class="line">b1 = tf.Variable(tf.zeros([h1_units]))</div><div class="line"># 隐藏层到输出层权重矩阵以及偏置</div><div class="line">W2 = tf.Variable(tf.zeros([h1_units, 10]))</div><div class="line">b2 = tf.Variable(tf.zeros([10]))</div><div class="line"># 输入数据的占位符</div><div class="line">x = tf.placeholder(tf.float32, [None, in_units])</div><div class="line"># 舍去数据所占的比率 因为训练集和测试数据集该比率不同所以将其定义为一个变量</div><div class="line">keep_prob = tf.placeholder(tf.float32)</div><div class="line"># 定义模型 隐藏层的激活函数使用的是ReLU</div><div class="line">hidden1 = tf.nn.relu(tf.matmul(x, W1) + b1)</div><div class="line"># 丢弃一部分隐藏层的数据之后再进行相关计算</div><div class="line">hidden1_drop = tf.nn.dropout(hidden1, keep_prob)</div><div class="line"># 模型最终的输出</div><div class="line">y = tf.nn.softmax(tf.matmul(hidden1_drop, W2) + b2)</div><div class="line"></div><div class="line"># Define loss and optimizer</div><div class="line"># 定义一个占位符：每张图片的标签</div><div class="line">y_ = tf.placeholder(tf.float32, [None, 10])</div><div class="line"># 定义损失函数：使用交叉熵作为损失函数</div><div class="line">cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))</div><div class="line"># 使用adagrad作为优化器来优化我们的目标函数</div><div class="line">train_step = tf.train.AdagradOptimizer(0.3).minimize(cross_entropy)</div><div class="line"></div><div class="line"># Train</div><div class="line"># 初始化权重</div><div class="line">tf.initialize_all_variables().run()</div><div class="line"># 一共训练3000次</div><div class="line">for i in range(3000):</div><div class="line">  # 每一个betch我们选取100张图片训练</div><div class="line">  batch_xs, batch_ys = mnist.train.next_batch(100)</div><div class="line">  train_step.run(&#123;x: batch_xs, y_: batch_ys, keep_prob: 0.75&#125;)</div><div class="line"></div><div class="line"># Test trained model</div><div class="line"># 判断测试集上我们预测的准确性</div><div class="line">correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))</div><div class="line"># </div><div class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</div><div class="line">print(accuracy.eval(&#123;x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0&#125;))</div></pre></td></tr></table></figure></li>
 </ul>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/path/to/wechat-reward-image" alt="cp WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/path/to/alipay-reward-image" alt="cp Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
     </div>
+  </div>
 
-    <div>
+
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/" itemprop="url">
-                  Tensorflow学习笔记-第一讲Tensorflow实现softmax Regression识别手写数字
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-31T18:21:52+08:00">
-                2017-05-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/" class="leancloud_visitors" data-flag-title="Tensorflow学习笔记-第一讲Tensorflow实现softmax Regression识别手写数字">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          
-            <h3 id="一-问题描述"><a href="#一-问题描述" class="headerlink" title="一.问题描述"></a>一.问题描述</h3><p>MNIST手写数字识别作为机器学习领域的Hello World.了解它的实现原理十分有必要，今天我们就来学习使用tensorflow实现手写数字识别<br>MNIST数据集：是一个机器视觉数据集，由几万张28像素*28像素的手写数字组成，图片只包含灰度值，我们的任务就是对这些手写数字进行分类，转成0-9一共10类。</p>
-<h3 id="二-实现原理"><a href="#二-实现原理" class="headerlink" title="二.实现原理"></a>二.实现原理</h3><p>1：数据处理<br>由上面描述我们知道每一个样本具有28<em>28维的特征，我们将这个矩阵拉成一个1维向量，使得其成为784列的向量。则训练集的特征就是一个55000</em>784的tensor。训练数据集的label则是一个55000*10的tensor。<br>2：算法设计<br>我们使用SoftMax Regression的算法对手写数字构建分类模型，我们最终的分类是一个0-9一共10类，Softmax Regression会对每一个类别估算一个概率，最后选出概率最大的那个数字作为模型的输出结果。</p>
-<p>$$\sum_{i=1}^n w_ij*x_j+b_i$$ </p>
-<p>将所有特征提取出来，然后再对所有特征进行softmax(x) = normalize(exp(x))进行处理。<br>$$softmax(xi)={exp(xi)\over \sum_{v=1}exp(xi)}$$</p>
-<h3 id="三代码"><a href="#三代码" class="headerlink" title="三代码"></a>三代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">#-*- coding: UTF-8 -*-</div><div class="line">&apos;&apos;&apos;</div><div class="line">利用softmax实现经典的图片识别</div><div class="line">	1：先定义我们的算法公式</div><div class="line">	2：定义损失函数和训练采用的方式（SGD） 优化器，</div><div class="line">	3：迭代的对数据进行训练</div><div class="line">	4：在测试集合验证集上对准确率进行评测</div><div class="line"></div><div class="line">&apos;&apos;&apos;python</div><div class="line">import gzip</div><div class="line">from tensorflow.examples.tutorials.mnist import input_data  </div><div class="line">mnist = input_data.read_data_sets(&quot;MNIST_data&quot;, one_hot=True)  # 使用one-hot编码  </div><div class="line">print(mnist.train.images.shape, mnist.train.labels.shape)  </div><div class="line">print(mnist.test.images.shape, mnist.test.labels.shape)  </div><div class="line">print(mnist.validation.images.shape, mnist.validation.labels.shape)  </div><div class="line">  </div><div class="line">  </div><div class="line">import tensorflow as tf  </div><div class="line">sess = tf.InteractiveSession()  </div><div class="line"># 第一步，定义算法公式  </div><div class="line"># 所谓的占位符就是我们要输入的量</div><div class="line">x = tf.placeholder(tf.float32, [None, 784])  # 构建占位符，None表示样本的数量可以是任意的  </div><div class="line"># 创建变量：和tensor不同，使用tf.Variable创建的变量，在每次迭代过程中都会更新。而</div><div class="line"># tensorflow 在每次迭代之后就消失了</div><div class="line">W = tf.Variable(tf.zeros([784, 10]))  # 构建一个变量，代表权重矩阵，初始化为0  </div><div class="line">b = tf.Variable(tf.zeros([10]))  # 构建一个变量，代表偏置，初始化为0  </div><div class="line">y = tf.nn.softmax(tf.matmul(x, W) + b)  # 构建了一个softmax的模型：y = softmax(Wx + b)，y指样本标签的预测值  </div><div class="line">  </div><div class="line"># 第二步，定义损失函数，选定优化器，并指定优化器优化损失函数  </div><div class="line"># y_这里定义的是真实的值 就是one hot编码</div><div class="line">y_ = tf.placeholder(tf.float32, [None, 10])  </div><div class="line"># 交叉熵损失函数  </div><div class="line">cross_entropy = -tf.reduce_sum(y_ * tf.log(y))  </div><div class="line"># 使用梯度下降法最小化cross_entropy损失函数  学习率为0.01</div><div class="line">train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)  </div><div class="line">  </div><div class="line"># 第三步，迭代地对数据进行训练  </div><div class="line">tf.initialize_all_variables().run()  </div><div class="line"></div><div class="line">for i in range(1000):  # 迭代次数1000  </div><div class="line">    batch_xs, batch_ys = mnist.train.next_batch(100)  # 使用minibatch，一个batch大小为100  </div><div class="line">    train_step.run(&#123;x: batch_xs, y_: batch_ys&#125;)  </div><div class="line">    print(&quot;tf.ones():&quot;, sess.run(W))</div><div class="line"># 第四步，在测试集或验证集上对准确率进行评测  </div><div class="line">correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))  # tf.argmax()返回的是某一维度上其数据最大所在的索引值，在这里即代表预测值和真值  </div><div class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # 用平均值来统计测试准确率  </div><div class="line">print(accuracy.eval(&#123;x: mnist.test.images, y_: mnist.test.labels&#125;))  # 打印测试信息</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/16/请回答1998/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/" rel="next" title="Tensorflow学习笔记-第一讲Tensorflow实现softmax Regression识别手写数字">
+                <i class="fa fa-chevron-left"></i> Tensorflow学习笔记-第一讲Tensorflow实现softmax Regression识别手写数字
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2017/05/16/请回答1998/" itemprop="url">
-                  请回答1998
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T23:44:15+08:00">
-                2017-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/16/请回答1998/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/16/请回答1998/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/05/16/请回答1998/" class="leancloud_visitors" data-flag-title="请回答1998">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="《请回答1998》观后感"><a href="#《请回答1998》观后感" class="headerlink" title="《请回答1998》观后感"></a>《请回答1998》观后感</h3><h5 id="前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。"><a href="#前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。" class="headerlink" title="前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。"></a>前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。</h5>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/16/Java第六讲之IO流/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/16/Java第六讲之IO流/" itemprop="url">
-                  Java第六讲之IO流
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T23:25:18+08:00">
-                2017-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/16/Java第六讲之IO流/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/16/Java第六讲之IO流/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/05/16/Java第六讲之IO流/" class="leancloud_visitors" data-flag-title="Java第六讲之IO流">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="引言：Java-IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。"><a href="#引言：Java-IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。" class="headerlink" title="引言：Java IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。"></a>引言：Java IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。</h3><p><img src="/2017/05/16/Java第六讲之IO流/1.jpg" alt="各种流图"></p>
-<h3 id="一：字节流："><a href="#一：字节流：" class="headerlink" title="一：字节流："></a>一：字节流：</h3><h4 id="1-1-字节输入流"><a href="#1-1-字节输入流" class="headerlink" title="1.1 字节输入流"></a>1.1 字节输入流</h4><p>inputStream:所有的字节输入流的父类，</p>
-<ul>
-<li>1：FileInputStream 基本的介质流，本地文件中读取数据。注意编码问题；</li>
-<li><p>2：FilterInputStream:是实现自定义过滤输入流的基类，基本上它仅仅只是覆盖了InputStream中的所有方法。</p></li></ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/16/Java第六讲之IO流/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/01/Java第五讲之虚拟机/" itemprop="url">
-                  Java第五 讲之虚拟机
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-01T22:40:03+08:00">
-                2017-05-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/01/Java第五讲之虚拟机/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/01/Java第五讲之虚拟机/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/05/01/Java第五讲之虚拟机/" class="leancloud_visitors" data-flag-title="Java第五 讲之虚拟机">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一-什么是Java虚拟机"><a href="#一-什么是Java虚拟机" class="headerlink" title="一.什么是Java虚拟机"></a>一.什么是Java虚拟机</h3><p><strong>一种虚拟抽象化的计算机，运行在真是的计算机之上，主要目的是实现Java的跨平台特性，屏蔽操作系统的异构型，让Java原码经过编译之后（成为字节码）可以直接在虚拟机上运行。它有自己完整的硬件体系架构，CPU，堆栈，等，还具有相应的指令系统</strong><br><img src="/2017/05/01/Java第五讲之虚拟机/1.jpg" alt="Java虚拟机图"></p>
-<p>我们所讲的Java Virtual Machine即JVM = <strong>类加载器+运行时数据区+执行引擎</strong><br>首先我们的java将写好的java文件经过java编译器编译之后成为class文件，由相应的类加载器进行加载到我们JVM中运行时数据区，在类加载器家在期间它会检查该类的合法性，并交由执行引擎进行执行；</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/01/Java第五讲之虚拟机/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/04/16/3月总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/16/3月总结/" itemprop="url">
-                  4月总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-16T14:38:37+08:00">
-                2017-04-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/04/16/3月总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/16/3月总结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/04/16/3月总结/" class="leancloud_visitors" data-flag-title="4月总结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h3 id="三月总结"><a href="#三月总结" class="headerlink" title="三月总结"></a>三月总结</h3><p><strong>整个三月，相比四月做的事情甚少，很多任务都没有完成</strong></p>
-<ul>
-<li><1>：总共找了3家实习，基本都拿下了，但心里知道这几家公司的情况，很一般。目前决定是去数梦工厂，可能要学习大数据相关的东西。</1></li>
-<li><2>: 华为大使很侥幸，更多层面是因为软件学院这个头衔通过面试。好的是又认识了一大群优秀的人儿。</2></li>
-<li><3>：完成了这学期的半马任务，成都双遗马拉松。</3></li>
-<li><4>：《技术之瞳 阿里巴巴技术笔试心得》完成1/2。</4></li>
-<li><5>：leetcode开始打卡20天</5></li>
-<li><6>：开始接触英语口语，单词没有坚持下去。</6></li>
-<li><7>：锻炼也没有按照计划进行。</7></li>
-<li><8>：开始加入实验室的机器学习讨论班，最近对自然语言处理(NLP)比较感兴趣</8></li>
-<li><9>：Java的相关知识点也开始总结了一部分。</9></li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/16/3月总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/"
+     data-title="Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机"
+     data-content=""
+     data-url="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
           
           </div>
@@ -1223,6 +554,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/"
+           data-title="Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机" data-url="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -1242,8 +581,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
@@ -1334,6 +682,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-问题描述"><span class="nav-number">1.</span> <span class="nav-text">一.问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-自编码器（去噪自编码）"><span class="nav-number">2.</span> <span class="nav-text">二.自编码器（去噪自编码）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-代码"><span class="nav-number">3.</span> <span class="nav-text">三. 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-利用tensorflow实现多层感知机"><span class="nav-number">4.</span> <span class="nav-text">四.利用tensorflow实现多层感知机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五：代码"><span class="nav-number">5.</span> <span class="nav-text">五：代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1439,6 +803,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

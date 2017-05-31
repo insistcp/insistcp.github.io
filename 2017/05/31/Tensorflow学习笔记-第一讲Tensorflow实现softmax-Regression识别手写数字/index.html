@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="CPINFO">
 <meta property="og:description" content="一.问题描述MNIST手写数字识别作为机器学习领域的Hello World.了解它的实现原理十分有必要，今天我们就来学习使用tensorflow实现手写数字识别MNIST数据集：是一个机器视觉数据集，由几万张28像素*28像素的手写数字组成，图片只包含灰度值，我们的任务就是对这些手写数字进行分类，转成0-9一共10类。
 二.实现原理1：数据处理由上面描述我们知道每一个样本具有2828维的特征，我们">
-<meta property="og:updated_time" content="2017-05-31T10:54:06.338Z">
+<meta property="og:updated_time" content="2017-05-31T11:36:12.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow学习笔记-第一讲Tensorflow实现softmax Regression识别手写数字">
 <meta name="twitter:description" content="一.问题描述MNIST手写数字识别作为机器学习领域的Hello World.了解它的实现原理十分有必要，今天我们就来学习使用tensorflow实现手写数字识别MNIST数据集：是一个机器视觉数据集，由几万张28像素*28像素的手写数字组成，图片只包含灰度值，我们的任务就是对这些手写数字进行分类，转成0-9一共10类。
@@ -405,7 +405,8 @@
       
         <h3 id="一-问题描述"><a href="#一-问题描述" class="headerlink" title="一.问题描述"></a>一.问题描述</h3><p>MNIST手写数字识别作为机器学习领域的Hello World.了解它的实现原理十分有必要，今天我们就来学习使用tensorflow实现手写数字识别<br>MNIST数据集：是一个机器视觉数据集，由几万张28像素*28像素的手写数字组成，图片只包含灰度值，我们的任务就是对这些手写数字进行分类，转成0-9一共10类。</p>
 <h3 id="二-实现原理"><a href="#二-实现原理" class="headerlink" title="二.实现原理"></a>二.实现原理</h3><p>1：数据处理<br>由上面描述我们知道每一个样本具有28<em>28维的特征，我们将这个矩阵拉成一个1维向量，使得其成为784列的向量。则训练集的特征就是一个55000</em>784的tensor。训练数据集的label则是一个55000*10的tensor。<br>2：算法设计<br>我们使用SoftMax Regression的算法对手写数字构建分类模型，我们最终的分类是一个0-9一共10类，Softmax Regression会对每一个类别估算一个概率，最后选出概率最大的那个数字作为模型的输出结果。</p>
-<p>$$Gini<em>index(D,a)=\sum</em>{v=1}^V {D^v\over D}{Gini(D^v)}$$</p>
+<p>$$\sum_{i=1}^n w_ij*x_j+b_i$$ </p>
+<p>将所有特征提取出来，然后再对所有特征进行softmax(x) = normalize(exp(x))进行处理。<br>$$softmax(xi)={exp(xi)\over \sum_{v=1}exp(xi)}$$</p>
 <h3 id="三代码"><a href="#三代码" class="headerlink" title="三代码"></a>三代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">#-*- coding: UTF-8 -*-</div><div class="line">&apos;&apos;&apos;</div><div class="line">利用softmax实现经典的图片识别</div><div class="line">	1：先定义我们的算法公式</div><div class="line">	2：定义损失函数和训练采用的方式（SGD） 优化器，</div><div class="line">	3：迭代的对数据进行训练</div><div class="line">	4：在测试集合验证集上对准确率进行评测</div><div class="line"></div><div class="line">&apos;&apos;&apos;python</div><div class="line">import gzip</div><div class="line">from tensorflow.examples.tutorials.mnist import input_data  </div><div class="line">mnist = input_data.read_data_sets(&quot;MNIST_data&quot;, one_hot=True)  # 使用one-hot编码  </div><div class="line">print(mnist.train.images.shape, mnist.train.labels.shape)  </div><div class="line">print(mnist.test.images.shape, mnist.test.labels.shape)  </div><div class="line">print(mnist.validation.images.shape, mnist.validation.labels.shape)  </div><div class="line">  </div><div class="line">  </div><div class="line">import tensorflow as tf  </div><div class="line">sess = tf.InteractiveSession()  </div><div class="line"># 第一步，定义算法公式  </div><div class="line"># 所谓的占位符就是我们要输入的量</div><div class="line">x = tf.placeholder(tf.float32, [None, 784])  # 构建占位符，None表示样本的数量可以是任意的  </div><div class="line"># 创建变量：和tensor不同，使用tf.Variable创建的变量，在每次迭代过程中都会更新。而</div><div class="line"># tensorflow 在每次迭代之后就消失了</div><div class="line">W = tf.Variable(tf.zeros([784, 10]))  # 构建一个变量，代表权重矩阵，初始化为0  </div><div class="line">b = tf.Variable(tf.zeros([10]))  # 构建一个变量，代表偏置，初始化为0  </div><div class="line">y = tf.nn.softmax(tf.matmul(x, W) + b)  # 构建了一个softmax的模型：y = softmax(Wx + b)，y指样本标签的预测值  </div><div class="line">  </div><div class="line"># 第二步，定义损失函数，选定优化器，并指定优化器优化损失函数  </div><div class="line"># y_这里定义的是真实的值 就是one hot编码</div><div class="line">y_ = tf.placeholder(tf.float32, [None, 10])  </div><div class="line"># 交叉熵损失函数  </div><div class="line">cross_entropy = -tf.reduce_sum(y_ * tf.log(y))  </div><div class="line"># 使用梯度下降法最小化cross_entropy损失函数  学习率为0.01</div><div class="line">train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)  </div><div class="line">  </div><div class="line"># 第三步，迭代地对数据进行训练  </div><div class="line">tf.initialize_all_variables().run()  </div><div class="line"></div><div class="line">for i in range(1000):  # 迭代次数1000  </div><div class="line">    batch_xs, batch_ys = mnist.train.next_batch(100)  # 使用minibatch，一个batch大小为100  </div><div class="line">    train_step.run(&#123;x: batch_xs, y_: batch_ys&#125;)  </div><div class="line">    print(&quot;tf.ones():&quot;, sess.run(W))</div><div class="line"># 第四步，在测试集或验证集上对准确率进行评测  </div><div class="line">correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))  # tf.argmax()返回的是某一维度上其数据最大所在的索引值，在这里即代表预测值和真值  </div><div class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # 用平均值来统计测试准确率  </div><div class="line">print(accuracy.eval(&#123;x: mnist.test.images, y_: mnist.test.labels&#125;))  # 打印测试信息</div></pre></td></tr></table></figure>
       
     </div>
@@ -478,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/31/Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机/" rel="prev" title="Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机">
+                Tensorflow学习笔记-第二讲Tensorflow实现自编码和多层感知机 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -572,7 +577,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
