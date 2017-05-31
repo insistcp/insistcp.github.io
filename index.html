@@ -308,6 +308,441 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPINFO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/" itemprop="url">
+                  Tensorflow学习笔记-第一讲Tensorflow实现softmax Regression识别手写数字
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-31T18:21:52+08:00">
+                2017-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/31/Tensorflow学习笔记-第一讲Tensorflow实现softmax-Regression识别手写数字/" class="leancloud_visitors" data-flag-title="Tensorflow学习笔记-第一讲Tensorflow实现softmax Regression识别手写数字">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一-问题描述"><a href="#一-问题描述" class="headerlink" title="一.问题描述"></a>一.问题描述</h3><p>MNIST手写数字识别作为机器学习领域的Hello World.了解它的实现原理十分有必要，今天我们就来学习使用tensorflow实现手写数字识别<br>MNIST数据集：是一个机器视觉数据集，由几万张28像素*28像素的手写数字组成，图片只包含灰度值，我们的任务就是对这些手写数字进行分类，转成0-9一共10类。</p>
+<h3 id="二-实现原理"><a href="#二-实现原理" class="headerlink" title="二.实现原理"></a>二.实现原理</h3><p>1：数据处理<br>由上面描述我们知道每一个样本具有28<em>28维的特征，我们将这个矩阵拉成一个1维向量，使得其成为784列的向量。则训练集的特征就是一个55000</em>784的tensor。训练数据集的label则是一个55000*10的tensor。<br>2：算法设计<br>我们使用SoftMax Regression的算法对手写数字构建分类模型，我们最终的分类是一个0-9一共10类，Softmax Regression会对每一个类别估算一个概率，最后选出概率最大的那个数字作为模型的输出结果。</p>
+<p>$$Gini<em>index(D,a)=\sum</em>{v=1}^V {D^v\over D}{Gini(D^v)}$$</p>
+<h3 id="三代码"><a href="#三代码" class="headerlink" title="三代码"></a>三代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">#-*- coding: UTF-8 -*-</div><div class="line">&apos;&apos;&apos;</div><div class="line">利用softmax实现经典的图片识别</div><div class="line">	1：先定义我们的算法公式</div><div class="line">	2：定义损失函数和训练采用的方式（SGD） 优化器，</div><div class="line">	3：迭代的对数据进行训练</div><div class="line">	4：在测试集合验证集上对准确率进行评测</div><div class="line"></div><div class="line">&apos;&apos;&apos;python</div><div class="line">import gzip</div><div class="line">from tensorflow.examples.tutorials.mnist import input_data  </div><div class="line">mnist = input_data.read_data_sets(&quot;MNIST_data&quot;, one_hot=True)  # 使用one-hot编码  </div><div class="line">print(mnist.train.images.shape, mnist.train.labels.shape)  </div><div class="line">print(mnist.test.images.shape, mnist.test.labels.shape)  </div><div class="line">print(mnist.validation.images.shape, mnist.validation.labels.shape)  </div><div class="line">  </div><div class="line">  </div><div class="line">import tensorflow as tf  </div><div class="line">sess = tf.InteractiveSession()  </div><div class="line"># 第一步，定义算法公式  </div><div class="line"># 所谓的占位符就是我们要输入的量</div><div class="line">x = tf.placeholder(tf.float32, [None, 784])  # 构建占位符，None表示样本的数量可以是任意的  </div><div class="line"># 创建变量：和tensor不同，使用tf.Variable创建的变量，在每次迭代过程中都会更新。而</div><div class="line"># tensorflow 在每次迭代之后就消失了</div><div class="line">W = tf.Variable(tf.zeros([784, 10]))  # 构建一个变量，代表权重矩阵，初始化为0  </div><div class="line">b = tf.Variable(tf.zeros([10]))  # 构建一个变量，代表偏置，初始化为0  </div><div class="line">y = tf.nn.softmax(tf.matmul(x, W) + b)  # 构建了一个softmax的模型：y = softmax(Wx + b)，y指样本标签的预测值  </div><div class="line">  </div><div class="line"># 第二步，定义损失函数，选定优化器，并指定优化器优化损失函数  </div><div class="line"># y_这里定义的是真实的值 就是one hot编码</div><div class="line">y_ = tf.placeholder(tf.float32, [None, 10])  </div><div class="line"># 交叉熵损失函数  </div><div class="line">cross_entropy = -tf.reduce_sum(y_ * tf.log(y))  </div><div class="line"># 使用梯度下降法最小化cross_entropy损失函数  学习率为0.01</div><div class="line">train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)  </div><div class="line">  </div><div class="line"># 第三步，迭代地对数据进行训练  </div><div class="line">tf.initialize_all_variables().run()  </div><div class="line"></div><div class="line">for i in range(1000):  # 迭代次数1000  </div><div class="line">    batch_xs, batch_ys = mnist.train.next_batch(100)  # 使用minibatch，一个batch大小为100  </div><div class="line">    train_step.run(&#123;x: batch_xs, y_: batch_ys&#125;)  </div><div class="line">    print(&quot;tf.ones():&quot;, sess.run(W))</div><div class="line"># 第四步，在测试集或验证集上对准确率进行评测  </div><div class="line">correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))  # tf.argmax()返回的是某一维度上其数据最大所在的索引值，在这里即代表预测值和真值  </div><div class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # 用平均值来统计测试准确率  </div><div class="line">print(accuracy.eval(&#123;x: mnist.test.images, y_: mnist.test.labels&#125;))  # 打印测试信息</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/16/请回答1998/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPINFO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/16/请回答1998/" itemprop="url">
+                  请回答1998
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T23:44:15+08:00">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/16/请回答1998/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/16/请回答1998/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/16/请回答1998/" class="leancloud_visitors" data-flag-title="请回答1998">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="《请回答1998》观后感"><a href="#《请回答1998》观后感" class="headerlink" title="《请回答1998》观后感"></a>《请回答1998》观后感</h3><h5 id="前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。"><a href="#前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。" class="headerlink" title="前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。"></a>前言：这部电视应该是去年就已经在自己的电脑里面下好了，当时一个好朋友推荐。原计划过年回去看，由于各种原因没看成，前段时间，学习状态极其不佳，便开始接触了这部电视。</h5>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/16/Java第六讲之IO流/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPINFO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/16/Java第六讲之IO流/" itemprop="url">
+                  Java第六讲之IO流
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T23:25:18+08:00">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/16/Java第六讲之IO流/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/16/Java第六讲之IO流/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/16/Java第六讲之IO流/" class="leancloud_visitors" data-flag-title="Java第六讲之IO流">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="引言：Java-IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。"><a href="#引言：Java-IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。" class="headerlink" title="引言：Java IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。"></a>引言：Java IO流作为面试笔试常常出现的的考点之一，掌握各种流的应用是十分必要。</h3><p><img src="/2017/05/16/Java第六讲之IO流/1.jpg" alt="各种流图"></p>
+<h3 id="一：字节流："><a href="#一：字节流：" class="headerlink" title="一：字节流："></a>一：字节流：</h3><h4 id="1-1-字节输入流"><a href="#1-1-字节输入流" class="headerlink" title="1.1 字节输入流"></a>1.1 字节输入流</h4><p>inputStream:所有的字节输入流的父类，</p>
+<ul>
+<li>1：FileInputStream 基本的介质流，本地文件中读取数据。注意编码问题；</li>
+<li><p>2：FilterInputStream:是实现自定义过滤输入流的基类，基本上它仅仅只是覆盖了InputStream中的所有方法。</p></li></ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/16/Java第六讲之IO流/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/05/01/Java第五讲之虚拟机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -751,464 +1186,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/04/09/Java基础第三讲之字符串/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/09/Java基础第三讲之字符串/" itemprop="url">
-                  Java基础第三讲之字符串
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-09T01:12:50+08:00">
-                2017-04-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/04/09/Java基础第三讲之字符串/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/09/Java基础第三讲之字符串/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/04/09/Java基础第三讲之字符串/" class="leancloud_visitors" data-flag-title="Java基础第三讲之字符串">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="String和StringBuilder-StringBuffer区别联系"><a href="#String和StringBuilder-StringBuffer区别联系" class="headerlink" title="String和StringBuilder,StringBuffer区别联系"></a>String和StringBuilder,StringBuffer区别联系</h3><h5 id="1：String"><a href="#1：String" class="headerlink" title="1：String"></a>1：String</h5><ul>
-<li>它是Java中一个final类型的类。是一个字符类型的数组。</li>
-<li>是引用数据类型。不可变</li>
-<li>常用的两种创建字符串的方式<ul>
-<li>String str = “chenepng”//声明一个字符串常量</li>
-<li>String str1 = new String(“chenpeng”)//声明一个字符串对象<br>这两种方式所创建的字符串机制完全不同的，第一种将所创建的字符串常量放在了常量池里面（jdk1.7之后将这片区域由原来的方法区移到了堆中）。如果新创建的字符串常量在常量池中存在，则直接将这个新的引用直接指向字符串常量即可。<br>第二种方式和普通的创建对象是一样的。</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/09/Java基础第三讲之字符串/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/27/Java基础第二篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/27/Java基础第二篇/" itemprop="url">
-                  Java基础第二篇
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-27T22:20:17+08:00">
-                2017-03-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/27/Java基础第二篇/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/27/Java基础第二篇/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/03/27/Java基础第二篇/" class="leancloud_visitors" data-flag-title="Java基础第二篇">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="问题一：Java的三大特性"><a href="#问题一：Java的三大特性" class="headerlink" title="问题一：Java的三大特性"></a>问题一：Java的三大特性</h4><h5 id="1：封装"><a href="#1：封装" class="headerlink" title="1：封装"></a>1：封装</h5><p>封装又称为信息的隐藏，是指利用抽象数据类型将数据和对数据的操作封装到一起的，使其构成一个不可分割的独立实体，数据被保护在抽象数据类性的内部，尽可能的隐藏内部的细节。只保留一些对外的接口。通过这些接口和外界发生联系。<br>优点：</p>
-<ul>
-<li>a：实现了专业的分工。<br>  将能够实现某一特定功能的代码封装成一个独立的实体，各个程序在需要使用时直接使用它对外开放的接口进行调用即可。</li>
-<li>b：隐藏了信息的实现细节。<br>  通过访问权限控制可以将不想让用户看到的信息隐藏起来。</li></ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/27/Java基础第二篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/03/26/Java基础第一篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CPINFO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/26/Java基础第一篇/" itemprop="url">
-                  Java基础第一篇
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T13:15:11+08:00">
-                2017-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/26/Java基础第一篇/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/26/Java基础第一篇/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/03/26/Java基础第一篇/" class="leancloud_visitors" data-flag-title="Java基础第一篇">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="引言：最近知乎上看了姚晟同学实习经历以及它的知识储备，深感惭愧，同样是Java开发，他的学习以及理解让自己有一种不可企及的感觉，遂决定从头开始完完整整的将所有的基础全补习一遍，按照（姚晟）推荐的顺序："><a href="#引言：最近知乎上看了姚晟同学实习经历以及它的知识储备，深感惭愧，同样是Java开发，他的学习以及理解让自己有一种不可企及的感觉，遂决定从头开始完完整整的将所有的基础全补习一遍，按照（姚晟）推荐的顺序：" class="headerlink" title="引言：最近知乎上看了姚晟同学实习经历以及它的知识储备，深感惭愧，同样是Java开发，他的学习以及理解让自己有一种不可企及的感觉，遂决定从头开始完完整整的将所有的基础全补习一遍，按照（姚晟）推荐的顺序："></a>引言：最近知乎上看了姚晟同学实习经历以及它的知识储备，深感惭愧，同样是Java开发，他的学习以及理解让自己有一种不可企及的感觉，遂决定从头开始完完整整的将所有的基础全补习一遍，按照（姚晟）推荐的顺序：</h4><h4 id="一：Java基础之-Java的内存模型"><a href="#一：Java基础之-Java的内存模型" class="headerlink" title="一：Java基础之-Java的内存模型"></a>一：Java基础之-Java的内存模型</h4><ul>
-<li>1.1:内存模型概述<br>正如我们所知道的那样，我们电脑的CPU执行速度十分快，就算是读写速度十分快的内存和CPU的计算速度相比也差了很多量级；所以为了让Java应用程序充分利用CPU,Java虚拟机专门设定了自己的内存模型。如下图所示：<center><img src="/2017/03/26/Java基础第一篇/1.jpg" alt="Java虚拟机的内存模型"></center>
-
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/26/Java基础第一篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1253,7 +1235,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
