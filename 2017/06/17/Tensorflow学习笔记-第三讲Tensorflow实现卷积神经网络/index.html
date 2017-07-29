@@ -1,0 +1,1135 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习,CNN,深度学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="引言卷积神经网络（Convolutional Neural Network CNN）最初提出来主要用来解决传统图像识别中参数过多而导致训练无法进行而出现的。我们都知道，使用传统机器学习算法进行图片识别时：首先需要人工提取特征，但是图片不像其他数据类型，可以通过人工进行特征的提取。在CNN出现之前，处理图类数据时，我们必须借助SIFT，HoG等算法提取有效并且具有良好区分性的特征，最后再结合SVM等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络">
+<meta property="og:url" content="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/index.html">
+<meta property="og:site_name" content="CPINFO">
+<meta property="og:description" content="引言卷积神经网络（Convolutional Neural Network CNN）最初提出来主要用来解决传统图像识别中参数过多而导致训练无法进行而出现的。我们都知道，使用传统机器学习算法进行图片识别时：首先需要人工提取特征，但是图片不像其他数据类型，可以通过人工进行特征的提取。在CNN出现之前，处理图类数据时，我们必须借助SIFT，HoG等算法提取有效并且具有良好区分性的特征，最后再结合SVM等">
+<meta property="og:image" content="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/2.png">
+<meta property="og:image" content="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/1.png">
+<meta property="og:updated_time" content="2017-06-18T05:42:54.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络">
+<meta name="twitter:description" content="引言卷积神经网络（Convolutional Neural Network CNN）最初提出来主要用来解决传统图像识别中参数过多而导致训练无法进行而出现的。我们都知道，使用传统机器学习算法进行图片识别时：首先需要人工提取特征，但是图片不像其他数据类型，可以通过人工进行特征的提取。在CNN出现之前，处理图类数据时，我们必须借助SIFT，HoG等算法提取有效并且具有良好区分性的特征，最后再结合SVM等">
+<meta name="twitter:image" content="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '3852e6e48b36f97cdc2aedd291dd6da6',
+      author: 'cp'
+    },
+    algolia: {
+      applicationID: '9KUO585UZV',
+      apiKey: '0b4a0640a74eefe620868de8b35863d3',
+      indexName: 'cpinsist',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到相关 ${query}的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/"/>
+
+
+
+
+
+  <title> Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络 | CPINFO </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CPINFO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPINFO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T21:14:12+08:00">
+                2017-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/" class="leancloud_visitors" data-flag-title="Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>卷积神经网络（Convolutional Neural Network CNN）最初提出来主要用来解决传统图像识别中参数过多而导致训练无法进行而出现的。我们都知道，使用传统机器学习算法进行图片识别时：首先需要人工提取特征，但是图片不像其他数据类型，可以通过人工进行特征的提取。在CNN出现之前，处理图类数据时，我们必须借助SIFT，HoG等算法提取有效并且具有良好区分性的特征，最后再结合SVM等机器学习算法进行图像的识别。CNN出现之后就将这一个过程简化了，同时使用CNN训练网络时，我们不需要将特征提取和分类训练两个过程分开。使用CNN训练的过程中就会提取到有效的特征值。同时CNN最大的特点就是：<br><a id="more"></a></p>
+<ul>
+<li>局部连接<br>  将传统神经网络中每个神经元和上一层的神经元之间的全链接变为局部链接，从而减少参数数目，降低模型复杂度。</li>
+<li>权值共享<br>  对于同一个过滤器而言，不同的神经元与上一层神经元链接的权重是是一样的（共享的），也达到了减少参数的目的</li>
+</ul>
+<h4 id="构成简介"><a href="#构成简介" class="headerlink" title="构成简介"></a>构成简介</h4><ul>
+<li><h6 id="卷积层（Conv）-采用不同的-kernel-提取原始图片的不同特征"><a href="#卷积层（Conv）-采用不同的-kernel-提取原始图片的不同特征" class="headerlink" title="卷积层（Conv） 采用不同的 kernel 提取原始图片的不同特征"></a>卷积层（Conv） 采用不同的 kernel 提取原始图片的不同特征</h6></li>
+<li><h6 id="池化层（Pool）-每个卷积层跟着一个实现局部平均和子抽样的计算层，能达到降维的目的。"><a href="#池化层（Pool）-每个卷积层跟着一个实现局部平均和子抽样的计算层，能达到降维的目的。" class="headerlink" title="池化层（Pool） 每个卷积层跟着一个实现局部平均和子抽样的计算层，能达到降维的目的。"></a>池化层（Pool） 每个卷积层跟着一个实现局部平均和子抽样的计算层，能达到降维的目的。</h6></li>
+<li><h6 id="归一化层"><a href="#归一化层" class="headerlink" title="归一化层"></a>归一化层</h6><ul>
+<li>（Batch Normalization）对上一层的输出进行一定的操作之后再输入到下一层。可以有效防止梯度弥散。<br>在卷积神经网络中进行批量归一化时，一般对未进行ReLu激活的feature map进行批量归一化，输出后再作为激励层的输入，可达到调整激励函数偏导的作用。</li>
+<li>LRN（Local Response Normalization）近邻归一化。和BN的区别在于BN一般用于计算不同样本之间的归一化操作，但是LRN的输入则是不同kernal处理的feature map。</li>
+</ul>
+</li>
+<li><h6 id="激活层（Activation-Neuron-Layers）-一般来说，激励层是element-wise的操作，输入和输出的大小相同，一般情况下就是一个非线性函数。"><a href="#激活层（Activation-Neuron-Layers）-一般来说，激励层是element-wise的操作，输入和输出的大小相同，一般情况下就是一个非线性函数。" class="headerlink" title="激活层（Activation / Neuron Layers） 一般来说，激励层是element-wise的操作，输入和输出的大小相同，一般情况下就是一个非线性函数。"></a>激活层（Activation / Neuron Layers） 一般来说，激励层是element-wise的操作，输入和输出的大小相同，一般情况下就是一个非线性函数。</h6></li>
+<li><h6 id="全连接层：通常在CNN的尾部进行重新拟合，减少特征信息的损失"><a href="#全连接层：通常在CNN的尾部进行重新拟合，减少特征信息的损失" class="headerlink" title="全连接层：通常在CNN的尾部进行重新拟合，减少特征信息的损失"></a>全连接层：通常在CNN的尾部进行重新拟合，减少特征信息的损失</h6></li>
+<li><h6 id="输出层：用于输出结果"><a href="#输出层：用于输出结果" class="headerlink" title="输出层：用于输出结果"></a>输出层：用于输出结果</h6></li>
+<li><h6 id="切分层：在一些应用中-需要对图片进行切割，独立地对某一部分区域进行单独学习。这样可以对特定部分进行通过调整感受视野进行力度更大的学习。"><a href="#切分层：在一些应用中-需要对图片进行切割，独立地对某一部分区域进行单独学习。这样可以对特定部分进行通过调整感受视野进行力度更大的学习。" class="headerlink" title="切分层：在一些应用中,需要对图片进行切割，独立地对某一部分区域进行单独学习。这样可以对特定部分进行通过调整感受视野进行力度更大的学习。"></a>切分层：在一些应用中,需要对图片进行切割，独立地对某一部分区域进行单独学习。这样可以对特定部分进行通过调整感受视野进行力度更大的学习。</h6></li>
+<li><h6 id="融合层：融合层可以对切分层进行融合，也可以对不同大小的卷积核学习到的特征进行融合。例如在GoogleLeNet-中，使用多种分辨率的卷积核对目标特征进行学习，通过-padding-使得每一个-feature-map-的长宽都一致，之后再将多个-feature-map-在深度上拼接在一起："><a href="#融合层：融合层可以对切分层进行融合，也可以对不同大小的卷积核学习到的特征进行融合。例如在GoogleLeNet-中，使用多种分辨率的卷积核对目标特征进行学习，通过-padding-使得每一个-feature-map-的长宽都一致，之后再将多个-feature-map-在深度上拼接在一起：" class="headerlink" title="融合层：融合层可以对切分层进行融合，也可以对不同大小的卷积核学习到的特征进行融合。例如在GoogleLeNet 中，使用多种分辨率的卷积核对目标特征进行学习，通过 padding 使得每一个 feature map 的长宽都一致，之后再将多个 feature map 在深度上拼接在一起："></a>融合层：融合层可以对切分层进行融合，也可以对不同大小的卷积核学习到的特征进行融合。例如在GoogleLeNet 中，使用多种分辨率的卷积核对目标特征进行学习，通过 padding 使得每一个 feature map 的长宽都一致，之后再将多个 feature map 在深度上拼接在一起：</h6></li>
+</ul>
+<h4 id="tensorflow-实现卷积神经网络"><a href="#tensorflow-实现卷积神经网络" class="headerlink" title="tensorflow 实现卷积神经网络"></a>tensorflow 实现卷积神经网络</h4><h5 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h5><p>利用CNN进行CIFAR-10数据集的图片识别，数据集中包含了60000张32*32的彩色图片，其中训练集50000张，测试机10000张。如其名字所示：所有图片一共分为10类，每一类图片有6000张。<br>这里主要解释对LRN作一解释：LRN（Local Response Normalization）<br>Local ResponseNormalization是对一个局部的输入区域进行的归一化（激活a被加一个归一化权重（分母部分）生成了新的激活b），有两种不同的形式，一种的输入区域为相邻的channels（cross channel LRN），另一种是为同一个channel内的空间区域（within channel LRN）<br>网络结构如下表格所示<br><img src="/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/2.png" alt="计算流程图"><br>利用卷积神经网络的计算流程图如下图所示<br><img src="/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/1.png" alt="计算流程图"></p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div></pre></td><td class="code"><pre><div class="line"># coding:UTF-8</div><div class="line"># 载入常用库，NumPy的time，并载入TlensorFow Models中的自动下载、读取CIFAR-10数据的类。</div><div class="line">import cifar10,cifar10_input</div><div class="line">import tensorflow as tf</div><div class="line">import numpy as np</div><div class="line">import time</div><div class="line"></div><div class="line">########输入数据########</div><div class="line"># 训练论数、batch大小（3000个batch，每个batch包含128个样本）。</div><div class="line">max_steps = 3000</div><div class="line">batch_size = 128</div><div class="line"># 下载CIFAR-10数据的默认路径</div><div class="line">data_dir = &apos;/tmp/cifar10_data/cifar-10-batches-bin&apos;</div><div class="line"></div><div class="line">########初始化权重########</div><div class="line"># 定义初始化weight的函数，依然使用tf.truncated_normal截断的正态分布来初始化权重。</div><div class="line"># 这里给weight加一个L2的loss，相当于做了一个L2的正则化处理。这个collection名为“losses”，会在后面计算总体loss时被用上</div><div class="line">def variable_with_weight_loss(shape, stddev, wl):</div><div class="line">    var = tf.Variable(tf.truncated_normal(shape, stddev = stddev))</div><div class="line">    if wl is not None:</div><div class="line">        weight_loss = tf.multiply(tf.nn.l2_loss(var), wl, name = &apos;weight_loss&apos;)</div><div class="line">        tf.add_to_collection(&apos;losses&apos;, weight_loss)</div><div class="line">    return var</div><div class="line"></div><div class="line">########数据处理########</div><div class="line"># 把cifar10的数据解压到data_dir中，然后将下一行代码注释掉，取消运行</div><div class="line"># (用到cifar-10.py)使用CIFAR-10下载数据集，并解压展开到其默认位置</div><div class="line">cifar10.maybe_download_and_extract()</div><div class="line"></div><div class="line"># 使用cifar10_input类中的distorted_input函数产生训练需要使用的数据，返回的是已经封装好的tensor，每次执行都会生成一个batch_size的数量的样本。</div><div class="line">images_train, labels_train = cifar10_input.distorted_inputs(data_dir = data_dir, batch_size = batch_size)</div><div class="line"></div><div class="line"># 使用cifar10_input.inputs函数生成测试数据。需要裁剪图片正中间的24*24的区块，并进行数据标准化操作。</div><div class="line">images_test, labels_test = cifar10_input.inputs(eval_data = True, data_dir = data_dir, batch_size = batch_size)</div><div class="line"></div><div class="line"># 创建输入数据的placeholder。batche_size在之后定义网络结构时被用到了，所以数据尺寸的第一个值样本条数需要提前设定。</div><div class="line">image_holder = tf.placeholder(tf.float32, [batch_size, 24, 24, 3])</div><div class="line">label_holder = tf.placeholder(tf.int32, [batch_size])</div><div class="line"></div><div class="line">########设计网络结构########</div><div class="line"># 第一个卷积层</div><div class="line"># 创建卷积核并进行初始化，不对第一个卷积层的weight进行L2正则</div><div class="line">weight1 = variable_with_weight_loss(shape = [5,5,3,64], stddev = 5e-2, wl = 0.0)</div><div class="line"># 对输入数据进行卷积操作 SAME的意思是with zero padding，不够的用0填充</div><div class="line">kernel1 = tf.nn.conv2d(image_holder, weight1, [1,1,1,1], padding = &apos;SAME&apos;)</div><div class="line"># 这层的bias全部初始化为0，再将卷积的结果加上bias</div><div class="line">bias1 = tf.Variable(tf.constant(0.0, shape = [64]))</div><div class="line"># 使用激活函数进行非线性化</div><div class="line">conv1 = tf.nn.relu(tf.nn.bias_add(kernel1, bias1))</div><div class="line"># 使用尺寸为3*3且步长为2*2的最大池化层处理数据，最大池化层的尺寸和步长不一致，增加数据的丰富性</div><div class="line">pool1 = tf.nn.max_pool(conv1, ksize = [1,3,3,1], strides = [1,2,2,1], padding = &apos;SAME&apos;)</div><div class="line"># 使用LRN对结果进行处理，对局部神经元的活动创建竞争环境，增强模型的泛化能力</div><div class="line">norm1 = tf.nn.lrn(pool1, 4, bias = 1.0, alpha = 0.001/9.0, beta = 0.75)</div><div class="line"></div><div class="line"># 第二个卷积层（与上一层相似）</div><div class="line"># 上一层的卷积核数量为64（即输出64个通道）。本层卷积核的第三维度输入通道数为64。</div><div class="line">weight2 = variable_with_weight_loss(shape = [5,5,64,64], stddev = 5e-2, wl = 0.0)</div><div class="line">kernel2 = tf.nn.conv2d(norm1, weight2, [1,1,1,1], padding = &apos;SAME&apos;)</div><div class="line"># bias值全部初始化为0.1。</div><div class="line">bias2 = tf.Variable(tf.constant(0.1, shape = [64]))</div><div class="line">conv2 = tf.nn.relu(tf.nn.bias_add(kernel2, bias2))</div><div class="line"># 与上一层不同，先进行LRN处理，在进行最大池化层。</div><div class="line">norm2 = tf.nn.lrn(conv2, 4, bias = 1.0, alpha = 0.001/9.0, beta = 0.75)</div><div class="line">pool2 = tf.nn.max_pool(norm2, ksize = [1,3,3,1], strides = [1,2,2,1], padding = &apos;SAME&apos;)</div><div class="line"></div><div class="line"># 全连接层</div><div class="line"># 将上一层的输出结果进行flatten。tf.reshape函数将每个样本都变成一维向量。</div><div class="line">reshape = tf.reshape(pool2, [batch_size, -1])</div><div class="line"># 获取数据扁平化之后的长度。</div><div class="line">dim = reshape.get_shape()[1].value</div><div class="line"># 对全连接层的weight进行初始化，隐含节点数为384，正太分布的标准差0.04。设置非零的weight loss，这一程所有参数被L2正则约束。</div><div class="line">weight3 = variable_with_weight_loss(shape = [dim, 384], stddev = 0.04, wl = 0.004)</div><div class="line"># bias值初始化为0.1</div><div class="line">bias3 = tf.Variable(tf.constant(0.1, shape = [384]))</div><div class="line"># 使用激活函数进行非线性化</div><div class="line">local3 = tf.nn.relu(tf.matmul(reshape, weight3) + bias3)</div><div class="line"></div><div class="line"># 全连接层（与上一层类似）</div><div class="line"># 隐含层节点数下降一半只有192个，其他超参数保持不变</div><div class="line">weight4 = variable_with_weight_loss(shape = [384,192], stddev = 0.04, wl = 0.004)</div><div class="line">bias4 = tf.Variable(tf.constant(0.1, shape = [192]))</div><div class="line">local4 = tf.nn.relu(tf.matmul(local3, weight4) + bias4)</div><div class="line"></div><div class="line"># 输出层（把Softmax的操作放在了loss部分）</div><div class="line"># 创建weight，其正态分布标准差为上一层隐含节点的倒数，并且不计入L2的正则。</div><div class="line">weight5 = variable_with_weight_loss(shape = [192,10], stddev = 1/192.0, wl = 0.0)</div><div class="line">bias5 = tf.Variable(tf.constant(0.0, shape = [10]))</div><div class="line"># Softmax放在下面的原因。我们不需要对inference的输出进行softmax处理就可以获得最终的分类结果。 </div><div class="line"># 直接比较inference输出的各类的数值大小即可。计算softmax主要是为了计算loss。因此softmax操作整合到后面合适。</div><div class="line"># 模型Inference的输出结果</div><div class="line">logits = tf.nn.relu(tf.matmul(local4, weight5) + bias5)</div><div class="line"></div><div class="line">########计算CNN的loss########</div><div class="line"># softmax和cross entropy loss的计算合在一起</div><div class="line"># 得到最终的loss，其中包括cross entropy loss和后两个全连接层weight的L2 loss</div><div class="line">def loss(logits, labels):</div><div class="line">    labels = tf.cast(labels, tf.int64)</div><div class="line">    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits = logits, labels = labels, name = &apos;cross_entropy_per_example&apos;)</div><div class="line">    cross_entropy_mean = tf.reduce_mean(cross_entropy, name = &apos;cross_entropy&apos;)</div><div class="line">    tf.add_to_collection(&apos;losses&apos;, cross_entropy_mean)</div><div class="line">    return tf.add_n(tf.get_collection(&apos;losses&apos;), name = &apos;total_loss&apos;)</div><div class="line"># loss函数中传入值，获得最终的loss</div><div class="line">loss = loss(logits, label_holder)</div><div class="line"></div><div class="line"></div><div class="line">########训练设置 ########</div><div class="line"># 选择优化器，学习速率设为1e-3</div><div class="line">train_op = tf.train.AdamOptimizer(1e-3).minimize(loss)</div><div class="line"># 输出结果中top k的准确率，也就是输出分数最高的那一类的准确率</div><div class="line">top_k_op = tf.nn.in_top_k(logits, label_holder, 1)</div><div class="line"></div><div class="line"># 创建默认的Session</div><div class="line">sess = tf.InteractiveSession()</div><div class="line"># 初始化全部模型参数</div><div class="line">tf.global_variables_initializer().run()</div><div class="line"># 启动图片数据增强的线程队列，一共使用16个线程进行加速。不启动无法开始后面的inference</div><div class="line">tf.train.start_queue_runners()</div><div class="line"></div><div class="line">########开始训练########</div><div class="line"># 记录每个step花费的时间，每隔10个step计算并展示当前的loss、每秒能训练的样本数量，以及在一个batch花费的时间。</div><div class="line">for step in range(max_steps):</div><div class="line">    start_time = time.time()</div><div class="line">    # 在每一个step的训练过程，先获得一个batch数据。再将这个batch数据传入train_op和loss的计算。</div><div class="line">    image_batch, label_batch = sess.run([images_train, labels_train])</div><div class="line">    _, loss_value = sess.run([train_op, loss], </div><div class="line">            feed_dict = &#123;image_holder: image_batch, label_holder: label_batch&#125;)</div><div class="line">    duration = time.time() - start_time</div><div class="line">    if step %10 ==0:</div><div class="line">        examples_per_sec = batch_size / duration</div><div class="line">    sec_per_batch = float(duration)</div><div class="line">        format_str = (&apos;step %d,loss=%.2f (%.1f example/sec; %.3f sec/batch)&apos;)</div><div class="line">    print(format_str % (step, loss_value, examples_per_sec, sec_per_batch))</div><div class="line"></div><div class="line"># 测试集评测准确率</div><div class="line"># 测试集样本数</div><div class="line">num_examples = 10000</div><div class="line">import math</div><div class="line"># 计算多少个batch能将全部样本评测完</div><div class="line">num_iter = int(math.ceil(num_examples / batch_size))</div><div class="line">true_count = 0</div><div class="line">total_sample_count = num_iter * batch_size</div><div class="line">step = 0</div><div class="line"># 在每一个的step中使用Session的run方法获取test的batch</div><div class="line"># 再执行top_k_op计算模型在这个batch的top 1上预测正确的样本数。</div><div class="line"># 最后汇总所有预测正确的结果，求得全部测试样本中预测正确的数量。</div><div class="line">while step &lt; num_iter:</div><div class="line">    image_batch, label_batch = sess.run([images_test,labels_test])</div><div class="line">    predictions = sess.run([top_k_op], feed_dict = &#123;image_holder: image_batch, label_holder: label_batch&#125;)</div><div class="line">    true_count += np.sum(predictions)</div><div class="line">    step += 1</div><div class="line"># 最后将准确率评测结果计算并打印出来。</div><div class="line">precision = true_count / total_sample_count</div><div class="line"># print(&apos;precision @ 1 = %.3f&apos; % precision)</div><div class="line"></div><div class="line">print (&apos; Num examples: %d  Num correct: %d  Precision @ 1: %0.02f &apos; % (</div><div class="line">total_sample_count, true_count, precision))</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/path/to/wechat-reward-image" alt="cp WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/path/to/alipay-reward-image" alt="cp Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/06/5月总结以及6月规划/" rel="next" title="5月总结以及6月规划">
+                <i class="fa fa-chevron-left"></i> 5月总结以及6月规划
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/29/openstack学习笔记-基础篇/" rel="prev" title="openstack学习笔记-基础篇">
+                openstack学习笔记-基础篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/"
+     data-title="Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络"
+     data-content=""
+     data-url="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/"
+           data-title="Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络" data-url="http://cpinsist.xyz/2017/06/17/Tensorflow学习笔记-第三讲Tensorflow实现卷积神经网络/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://upload.jianshu.io/users/upload_avatars/2853119/cbd6eb1d1553.JPG?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
+               alt="cp" />
+          <p class="site-author-name" itemprop="name">cp</p>
+           
+              <p class="site-description motion-element" itemprop="description">Don't let slipe away</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/insistcp" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/0af3fd29a08a" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-jianshu"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/#signin" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构成简介"><span class="nav-number">2.</span> <span class="nav-text">构成简介</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#卷积层（Conv）-采用不同的-kernel-提取原始图片的不同特征"><span class="nav-number">2.0.1.</span> <span class="nav-text">卷积层（Conv） 采用不同的 kernel 提取原始图片的不同特征</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#池化层（Pool）-每个卷积层跟着一个实现局部平均和子抽样的计算层，能达到降维的目的。"><span class="nav-number">2.0.2.</span> <span class="nav-text">池化层（Pool） 每个卷积层跟着一个实现局部平均和子抽样的计算层，能达到降维的目的。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#归一化层"><span class="nav-number">2.0.3.</span> <span class="nav-text">归一化层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#激活层（Activation-Neuron-Layers）-一般来说，激励层是element-wise的操作，输入和输出的大小相同，一般情况下就是一个非线性函数。"><span class="nav-number">2.0.4.</span> <span class="nav-text">激活层（Activation / Neuron Layers） 一般来说，激励层是element-wise的操作，输入和输出的大小相同，一般情况下就是一个非线性函数。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#全连接层：通常在CNN的尾部进行重新拟合，减少特征信息的损失"><span class="nav-number">2.0.5.</span> <span class="nav-text">全连接层：通常在CNN的尾部进行重新拟合，减少特征信息的损失</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#输出层：用于输出结果"><span class="nav-number">2.0.6.</span> <span class="nav-text">输出层：用于输出结果</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#切分层：在一些应用中-需要对图片进行切割，独立地对某一部分区域进行单独学习。这样可以对特定部分进行通过调整感受视野进行力度更大的学习。"><span class="nav-number">2.0.7.</span> <span class="nav-text">切分层：在一些应用中,需要对图片进行切割，独立地对某一部分区域进行单独学习。这样可以对特定部分进行通过调整感受视野进行力度更大的学习。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#融合层：融合层可以对切分层进行融合，也可以对不同大小的卷积核学习到的特征进行融合。例如在GoogleLeNet-中，使用多种分辨率的卷积核对目标特征进行学习，通过-padding-使得每一个-feature-map-的长宽都一致，之后再将多个-feature-map-在深度上拼接在一起："><span class="nav-number">2.0.8.</span> <span class="nav-text">融合层：融合层可以对切分层进行融合，也可以对不同大小的卷积核学习到的特征进行融合。例如在GoogleLeNet 中，使用多种分辨率的卷积核对目标特征进行学习，通过 padding 使得每一个 feature map 的长宽都一致，之后再将多个 feature map 在深度上拼接在一起：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tensorflow-实现卷积神经网络"><span class="nav-number">3.</span> <span class="nav-text">tensorflow 实现卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述"><span class="nav-number">3.1.</span> <span class="nav-text">题目描述</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cp</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cpinsist"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("oKG42myw3jGFjWFxah5MGdFV-gzGzoHsz", "ENQtOLOJee8VU3IFw1JWw3ca");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
